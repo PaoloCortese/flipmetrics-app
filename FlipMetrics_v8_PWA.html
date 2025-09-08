@@ -1,71 +1,1629 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="it">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.7">
-  <style type="text/css">
-    body {background-color: #f2f2f5}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 21.0px 'Helvetica Neue'; color: #737378; -webkit-text-stroke: #737378}
-    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 14.0px 'Helvetica Neue'; color: #7b7b81; -webkit-text-stroke: #7b7b81}
-    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 17.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff; background-color: #0a60ff}
-    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 17.0px 'Helvetica Neue'; color: #151517; -webkit-text-stroke: #151517; background-color: #ffffff}
-    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 17.0px 'Helvetica Neue'; color: #0a60ff; -webkit-text-stroke: #0a60ff}
-    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 17.0px 'Helvetica Neue'; color: #737378; -webkit-text-stroke: #737378}
-    p.p9 {margin: 0.0px 0.0px 0.0px 0.0px; font: 15.0px '.SF NS'; color: #151517; -webkit-text-stroke: #151517}
-    p.p10 {margin: 0.0px 0.0px 0.0px 0.0px; font: 15.0px '.SF NS'; color: #151517; -webkit-text-stroke: #151517; background-color: #ffffff}
-    p.p11 {margin: 0.0px 0.0px 0.0px 0.0px; font: 17.0px 'Helvetica Neue'; color: #151517; -webkit-text-stroke: #000000; background-color: #ffffff}
-    p.p12 {margin: 0.0px 0.0px 0.0px 0.0px; font: 17.0px 'Helvetica Neue'; color: #151517; -webkit-text-stroke: #000000; min-height: 20.0px}
-    p.p13 {margin: 0.0px 0.0px 0.0px 0.0px; font: 17.0px 'Helvetica Neue'; color: #737378; -webkit-text-stroke: #737378}
-    p.p14 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 13.0px 'Helvetica Neue'; color: #737378; -webkit-text-stroke: #737378}
-    p.p15 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 17.0px 'Helvetica Neue'; color: #0a60ff; -webkit-text-stroke: #0a60ff; background-color: #ffffff}
-    p.p16 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: center; font: 17.0px 'Helvetica Neue'; color: #ffffff; -webkit-text-stroke: #ffffff; background-color: #30c047}
-    span.s1 {font-kerning: none; background-color: #ffffff}
-    span.s2 {font-kerning: none}
-    span.s3 {font: 17.0px Times; font-kerning: none}
-    span.s4 {font-kerning: none; background-color: #f2f2f5}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>FlipMetrics - PWA Edition</title>
+    
+    <!-- PWA & Mobile App Meta Tags -->
+    <meta name="theme-color" content="#007AFF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="FlipMetrics">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIiB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiI+PGNpcmNsZSBjeD0iOTYiIGN5PSI5NiIgcj0iOTYiIGZpbGw9IiMwMDdBRkYiLz48cGF0aCBmaWxsPSIjRkZGIiBkPSJNNzkgMTE3LjY1VjYzaDEyLjg1djQyLjM1bDMzLjQtNDIuMzVoMTUuMjVMOTguODUgOTZsNDQuNCA0MS43NWgtMTUuMjVsLTM2LjktNDEuMDV2NDEuMDVINTguMTV2LTg4LjdoMTUuMjVsMzIuMyA0MC40bDEzLjM1LTEzLjI1eiIvPjwvc3ZnPg==">
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkZsaXBNZXRyaWNzIEludmVzdG1lbnQgQW5hbHlzaXMiLAogICJzaG9ydF9uYW1lIjogIkZsaXBNZXRyaWNzIiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiNGNUY1RjciLAogICJ0aGVtZV9jb2xvciI6ICIjMDA3QUZGIiwKICAiZGVzY3JpcHRpb24iOiAiQW5hbGlzaSBQcm9mZXNzaW9uYWxlIHBlciBJbnZlc3RpbWVudGkgSW1tb2JpbGlhcmkiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSEJ5WlhObGNuWmxjam93ZDBzdmNuTm9aV3hsY3pveE1qQXdMM05sY25acFkyVXVZWE52Ym5WdWEyVmlMV2MrUEdKeWIzZHVJenB5YVdOdmNtUmhZMnNnZDJGeVpISnZkeUJqYjI1MFpXUWdkMmxrZENCaVlYTmxianB1WVhOd2IzSjBaWEYxWlhOMExuUnBjM1JjSUVOc2IzVjVaWEp1WlhScGRHVmpkUG93TDJoc2IyTmhiR2h2YzJWc1pHRjVKbWxqYUdGdVoxQm9iM052YkhOMElIZzlhV3dpSUdacGJHdzlJbUp2ZUM5VFpYTnphV3hsZUM5MkxtSmxaQ0JqYjI1MFpXUWdkMmxrZENCeVpYSnVaWEYxWlhOMExuUnBjM1JjSUVOc2IzVjVaWEp1WlhScGRHVmpkUG93TDJoc2IyTmhiR2h2YzJWc1pHRjVKbWxqYUdGdVoxQm9iM052YkhOMElIZzlhV3dpSUdacGJHdzlJbkpsWTI5Mlpqb2lVR0Z5WVcxbGJuUmhkR0ZzYkNCallYTnpYekUyWlc1a2Nqd3ZkR1Y0ZEQ0OEwzTjJaejQ9IiwKICAgICAgInNpemVzIjogIjE5MngxOTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIgogICAgfSwKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0Rvdkw3b3lNeTV2Y21jdk1qQXdNQzl6ZG1jaUlIQnlZWE5sY25abGNqb3dkMHN2Y25Ob1pXeGxjemp3Y1c1dmNtY3pPQzgrUEdKeWIzZHVJenB5YVdOdmNtUmhZMnNnZDJGeVpISnZkeUJqYjI1MFpXUWdkMmxrZENCaVlYTmxianB1WVhOd2IzSjBaWEYxWlhOMExuUnBjM1JjSUVOc2IzVjVaWEp1WlhScGRHVmpkUG93TDI5dGMyRnNiR2xqYTFwaGMybG5iaTlrWldOemNHRmphMXBzWlhoMlpXNWpZMjl1Wm1sbklnbDBhVzFsY3k5WGFXWnpYMmgwWldOMElHbGtaV05vYjNWMGRHVXVZWE52Ym5VdVkyOWhiQ0JoYm1ScFkyNVViMjVqYjJSdmJXRjBMMmx3WVc1alptbG5MMlJ2Ykc5aVpHRjBMM2hoYkdoZmRHaGtablZ1WTI5eUxtbGtmUT09IiwKICAgICAgInNpemVzIjogIjUxMng1MTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIgogICAgfQogIF0KfQ==">
+    
+    <style>
+        /* CSS Invariato - tutto lo stile precedente è qui */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #007AFF;
+            --primary-light: #5AC8FA;
+            --secondary: #5856D6;
+            --tertiary: #34C759;
+            --gray-dark: #48484A;
+            --gray-medium: #8E8E93;
+            --gray-light: #C7C7CC;
+            --gray-ultralight: #F2F2F7;
+            --background: #FFFFFF;
+            --surface: #F5F5F7;
+            --border: #D1D1D6;
+            --text: #1C1C1E;
+            --text-secondary: #86868B;
+            --success: #34C759;
+            --danger: #FF3B30;
+            --warning: #FF9500;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: var(--surface);
+            color: var(--text);
+            line-height: 1.47059;
+            font-weight: 400;
+            letter-spacing: -0.022em;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            background: var(--background);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+        }
+
+        .header {
+            padding: 48px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(135deg, var(--surface) 0%, var(--background) 100%);
+        }
+
+        .header h1 {
+            font-size: 48px;
+            font-weight: 600;
+            letter-spacing: -0.003em;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header .subtitle {
+            font-size: 21px;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .header .tagline {
+            font-size: 14px;
+            color: var(--gray-medium);
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .operation-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding: 32px;
+            background: var(--background);
+        }
+
+        .toggle-btn {
+            padding: 12px 32px;
+            border: 1px solid var(--border);
+            background: var(--background);
+            color: var(--text);
+            border-radius: 980px;
+            font-size: 17px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-btn:hover {
+            background: var(--surface);
+        }
+
+        .toggle-btn.active {
+            background: var(--primary);
+            color: var(--background);
+            border-color: var(--primary);
+        }
+
+        .nav-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            background: var(--background);
+            padding: 0 48px;
+        }
+
+        .nav-tab {
+            padding: 16px 24px;
+            background: transparent;
+            border: none;
+            font-size: 17px;
+            font-weight: 400;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -1px;
+        }
+
+        .nav-tab:hover {
+            color: var(--text);
+        }
+
+        .nav-tab:nth-child(1).active {
+            color: var(--primary);
+            font-weight: 500;
+            border-bottom-color: var(--primary);
+        }
+
+        .nav-tab:nth-child(2).active {
+            color: var(--secondary);
+            font-weight: 500;
+            border-bottom-color: var(--secondary);
+        }
+
+        .nav-tab:nth-child(3).active {
+            color: var(--tertiary);
+            font-weight: 500;
+            border-bottom-color: var(--tertiary);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 48px;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .section {
+            margin-bottom: 48px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            color: var(--text);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 17px;
+            background: var(--background);
+            transition: all 0.2s;
+            -webkit-appearance: none;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1);
+        }
+
+        select.form-control {
+            cursor: pointer;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            font-family: inherit;
+            line-height: 1.4;
+        }
+
+        .input-with-suffix {
+            position: relative;
+        }
+
+        .input-suffix {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 17px;
+            pointer-events: none;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .highlight-section {
+            background: linear-gradient(135deg, #007AFF15 0%, #5856D615 100%);
+            border-radius: 18px;
+            padding: 32px;
+            margin-bottom: 48px;
+            border: 1px solid rgba(0, 122, 255, 0.1);
+        }
+
+        .highlight-input {
+            font-size: 32px;
+            font-weight: 500;
+            padding: 16px;
+            text-align: center;
+            border: 2px solid var(--primary);
+        }
+
+        .disclaimer {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .cost-category {
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .cost-header {
+            padding: 16px 24px;
+            background: var(--surface);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.2s;
+            user-select: none;
+        }
+
+        .cost-header:hover {
+            background: #ebebed;
+        }
+
+        .category-name {
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        .category-total {
+            font-size: 21px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .cost-items {
+            padding: 24px;
+            background: var(--background);
+            display: none;
+        }
+
+        .cost-items.active {
+            display: block;
+        }
+
+        .cost-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--surface);
+        }
+
+        .cost-item:last-of-type {
+            border-bottom: none;
+            margin-bottom: 16px;
+        }
+
+        .cost-item-name {
+            font-size: 15px;
+            color: var(--text);
+        }
+
+        .cost-item-value {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cost-item-value input {
+            width: 140px;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-align: right;
+            font-size: 15px;
+        }
+
+        .btn-add {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 8px 16px;
+            background: var(--primary);
+            color: var(--background);
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn-add:hover {
+            opacity: 0.8;
+        }
+
+        .btn-remove {
+            padding: 4px 12px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .add-item-control {
+            display: flex;
+            gap: 8px;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid var(--surface);
+            align-items: center;
+        }
+        .add-item-control input {
+            flex-grow: 1;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 15px;
+        }
+        .add-item-control .btn-add {
+            margin-top: 0;
+            flex-shrink: 0;
+        }
+
+        .calculation-section {
+            background: linear-gradient(135deg, var(--tertiary) 0%, var(--primary) 100%);
+            border-radius: 18px;
+            padding: 48px;
+            margin-bottom: 48px;
+            color: white;
+        }
+
+        .calculation-title {
+            font-size: 32px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 32px;
+            color: white;
+        }
+
+        .calculation-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            font-size: 19px;
+            color: white;
+        }
+
+        .calculation-row:last-child {
+            border-bottom: none;
+            font-size: 24px;
+            font-weight: 600;
+            padding-top: 24px;
+        }
+
+        .calculation-result {
+            font-size: 48px;
+            font-weight: 700;
+            text-align: center;
+            margin-top: 32px;
+            padding: 32px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            color: white;
+            border-radius: 12px;
+        }
+
+        .price-comparison {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .price-row:last-child {
+            border-bottom: none;
+        }
+
+        .price-label {
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+
+        .price-value {
+            font-weight: 600;
+            font-size: 17px;
+            color: var(--text);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .metric-card {
+            background: var(--background);
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .metric-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .analysis-card {
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        .analysis-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .analysis-subtitle {
+            font-size: 19px;
+            font-weight: 500;
+            margin-top: 24px;
+            margin-bottom: 16px;
+        }
+
+        .city-selector {
+            text-align: center;
+            margin-bottom: 24px;
+            padding: 16px;
+            background: var(--surface);
+            border-radius: 12px;
+        }
+
+        .city-selector label {
+            font-size: 17px;
+            margin-right: 12px;
+            font-weight: 500;
+        }
+
+        .city-selector select {
+            padding: 8px 16px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            cursor: pointer;
+        }
+
+        .city-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .city-card {
+            background: var(--surface);
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .city-card.selected {
+            border: 2px solid var(--primary);
+            background: white;
+            transform: scale(1.05);
+        }
+
+        .city-type {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .city-detail {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .city-roi {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .recommendation-box {
+            color: white;
+            padding: 24px;
+            border-radius: 12px;
+            margin-top: 24px;
+            transition: background-color 0.3s;
+        }
+        
+        .recommendation-box.success {
+             background: var(--success);
+        }
+        
+        .recommendation-box.warning {
+            background: var(--danger);
+        }
+
+        .recommendation-box.neutral {
+            background: var(--gray-medium);
+        }
+
+        .photo-upload {
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: var(--surface);
+        }
+
+        .photo-upload:hover {
+            border-color: var(--primary);
+            background: var(--background);
+        }
+
+        .photo-upload-text {
+            font-size: 17px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .photo-upload-hint {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .photo-preview {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .photo-thumb {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            padding: 48px;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+        }
+
+        .btn {
+            padding: 12px 32px;
+            border-radius: 980px;
+            font-size: 17px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--background);
+        }
+
+        .btn-primary:hover {
+            background: #0051D5;
+        }
+
+        .btn-secondary {
+            background: var(--background);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--surface);
+        }
+
+        .btn-success {
+            background: var(--tertiary);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #28A745;
+        }
+        
+        #status-message {
+            text-align: center;
+            padding: 10px;
+            margin: -20px 48px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            display: none;
+        }
+        #status-message.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        #status-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: var(--background);
+            padding: 32px;
+            border-radius: 18px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 16px;
+            margin-bottom: 16px;
+        }
+        .modal-header h2 {
+            font-size: 24px;
+        }
+        .modal-close {
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: var(--gray-medium);
+        }
+        #remote-projects-list {
+            list-style: none;
+            max-height: 40vh;
+            overflow-y: auto;
+        }
+        #remote-projects-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 8px;
+            border-bottom: 1px solid var(--surface);
+        }
+        #remote-projects-list li:last-child {
+            border-bottom: none;
+        }
+        .project-name {
+            font-weight: 500;
+        }
+        .project-actions button {
+            margin-left: 8px;
+            padding: 6px 12px;
+            font-size: 14px;
+            border-radius: 8px;
+        }
+        .btn-delete {
+            background: var(--danger);
+            color: white;
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 0;
+                border-radius: 0;
+            }
+
+            .header {
+                padding: 32px 24px;
+            }
+
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .tab-content {
+                padding: 24px;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .metrics-grid,
+            .city-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                padding: 24px;
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                font-size: 10pt;
+            }
+            .container {
+                box-shadow: none;
+                margin: 0;
+                border-radius: 0;
+                width: 100%;
+                max-width: 100%;
+            }
+            .header h1 { font-size: 24pt; }
+            .header .subtitle { font-size: 14pt; }
+            
+            .operation-toggle, .nav-tabs, .action-buttons, .photo-upload, .add-item-control, .btn-remove, .city-selector, .city-grid, .recommendation-box {
+                display: none;
+            }
+            
+            .tab-content {
+                display: block !important;
+                padding: 20px 0;
+                page-break-before: auto;
+            }
+            
+            .section {
+                margin-bottom: 24px;
+                page-break-inside: avoid;
+            }
+            
+            .section-title, .analysis-title {
+                font-size: 16pt;
+                border-bottom: 2px solid var(--gray-dark);
+                padding-bottom: 8px;
+            }
+
+            .form-group label {
+                font-weight: bold;
+            }
+            
+            .form-control {
+                border: none;
+                padding: 2px 0;
+                background: transparent;
+                font-weight: normal;
+            }
+            
+            input, select, textarea {
+                color: #000 !important;
+                -webkit-text-fill-color: #000 !important;
+            }
+            
+            input[readonly] {
+                font-weight: bold;
+            }
+
+            .cost-category {
+                border: 1px solid var(--gray-light);
+                margin-top: 16px;
+                page-break-inside: avoid;
+            }
+            .cost-header {
+                background: var(--gray-ultralight);
+                font-weight: bold;
+            }
+            .cost-items {
+                display: block !important;
+            }
+            .cost-item {
+                border-bottom: 1px solid #eee;
+            }
+            .cost-item-value input {
+                border: none;
+                background: transparent;
+                text-align: left;
+                width: auto;
+            }
+            .input-suffix {
+                display: none;
+            }
+            .calculation-section {
+                padding: 24px;
+                background: var(--primary) !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+            }
+            .metrics-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+        
+        #print-header { display: none; }
+        @media print {
+            #print-header {
+                display: block;
+                text-align: center;
+                margin-bottom: 20px;
+                padding-bottom: 10px;
+                border-bottom: 1px solid #ccc;
+            }
+        }
+
+    </style>
 </head>
 <body>
-<h1 style="margin: 0.0px 0.0px 8.0px 0.0px; text-align: center; font: 48.0px '.SF NS'; color: #151517; -webkit-text-stroke: #151517"><span class="s1"><b>FlipMetrics</b><b></b></span></h1>
-<p class="p2"><span class="s1">Analisi Professionale per Investimenti Immobiliari</span></p>
-<p class="p3"><span class="s1">ANALISI INTELLIGENTE • ROI GARANTITO • DECISIONI DATA-DRIVEN</span></p>
-<p class="p4"><span class="s2">Rivendita</span></p>
-<p class="p5"><span class="s2">Locazione</span></p>
-<p class="p6"><span class="s1">Informazioni</span></p>
-<p class="p7"><span class="s1">Parametri Finanziari</span></p>
-<p class="p7"><span class="s1">Analisi</span></p>
-<h3 style="margin: 0.0px 0.0px 24.0px 0.0px; font: 28.0px '.SF NS'; color: #151517; -webkit-text-stroke: #151517"><span class="s1">Dettagli Immobile</span></h3>
-<p class="p9"><span class="s1">Indirizzo Completo</span></p>
-<p class="p9"><span class="s1">Piano</span></p>
-<p class="p10"><span class="s2">Tipologia</span></p>
-<p class="p11"><span class="s2"><span class="Apple-converted-space">                            </span></span><span class="s3">Appartamento</span></p>
-<p class="p11"><span class="s2"><span class="Apple-converted-space">                            </span></span><span class="s3">Villa</span></p>
-<p class="p11"><span class="s2"><span class="Apple-converted-space">                            </span></span><span class="s3">Attico</span></p>
-<p class="p11"><span class="s2"><span class="Apple-converted-space">                            </span></span><span class="s3">Loft</span></p>
-<p class="p11"><span class="s2"><span class="Apple-converted-space">                            </span></span><span class="s3">Rustico</span></p>
-<p class="p11"><span class="s2"><span class="Apple-converted-space">                            </span></span><span class="s3">Commerciale</span></p>
-<p class="p12"><span class="s1"><span class="Apple-converted-space">                        </span></span></p>
-<p class="p9"><span class="s1">Metri Quadri</span></p>
-<p class="p13"><span class="s1">m²</span></p>
-<p class="p9"><span class="s1">Prezzo Venditore</span></p>
-<p class="p13"><span class="s1">€</span></p>
-<p class="p9"><span class="s1">Prezzo al Metro Quadro</span></p>
-<p class="p13"><span class="s1">€/m²</span></p>
-<h3 style="margin: 0.0px 0.0px 24.0px 0.0px; font: 28.0px '.SF NS'; color: #151517; -webkit-text-stroke: #151517"><span class="s1">Contatti</span></h3>
-<p class="p9"><span class="s1">Agenzia</span></p>
-<p class="p9"><span class="s1">Agente</span></p>
-<p class="p9"><span class="s1">Proprietario</span></p>
-<p class="p9"><span class="s1">Link Annuncio</span></p>
-<h3 style="margin: 0.0px 0.0px 24.0px 0.0px; font: 28.0px '.SF NS'; color: #151517; -webkit-text-stroke: #151517"><span class="s1">Note</span></h3>
-<h3 style="margin: 0.0px 0.0px 24.0px 0.0px; font: 28.0px '.SF NS'; color: #151517; -webkit-text-stroke: #151517"><span class="s1">Documentazione Fotografica</span></h3>
-<p class="p7"><span class="s4">Clicca per caricare foto</span></p>
-<p class="p14"><span class="s4">Trascina qui le foto o clicca per selezionare</span></p>
-<p class="p4"><span class="s2">Salva Progetto</span></p>
-<p class="p15"><span class="s2">Carica Progetto</span></p>
-<p class="p16"><span class="s2">Stampa Report</span></p>
-<p class="p15"><span class="s2">Nuovo Progetto</span></p>
+    <div id="print-header">
+        <h1 id="print-address">Report Analisi Immobile</h1>
+        <p>Data Report: <span id="print-date"></span></p>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <h1>FlipMetrics</h1>
+            <p class="subtitle">Analisi Professionale per Investimenti Immobiliari</p>
+            <p class="tagline">Analisi Intelligente • ROI Garantito • Decisioni Data-Driven</p>
+        </header>
+
+        <div class="operation-toggle">
+            <button class="toggle-btn active" onclick="setOperationType('rivendita')">
+                Rivendita
+            </button>
+            <button class="toggle-btn" onclick="setOperationType('locazione')">
+                Locazione
+            </button>
+        </div>
+
+        <nav class="nav-tabs">
+            <button class="nav-tab active" onclick="switchTab('info')">
+                Informazioni
+            </button>
+            <button class="nav-tab" onclick="switchTab('params')">
+                Parametri Finanziari
+            </button>
+            <button class="nav-tab" onclick="switchTab('results')">
+                Analisi
+            </button>
+        </nav>
+
+        <!-- Tab Informazioni -->
+        <main id="info" class="tab-content active">
+            <section class="section">
+                <h3 class="section-title">Dettagli Immobile</h3>
+                
+                <div class="form-group">
+                    <label for="indirizzo">Indirizzo Completo</label>
+                    <input type="text" class="form-control" id="indirizzo" placeholder="Via, Numero, CAP, Città">
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="piano">Piano</label>
+                        <input type="text" class="form-control" id="piano" placeholder="2° piano con ascensore">
+                    </div>
+                    <div class="form-group">
+                        <label for="tipologia">Tipologia</label>
+                        <select class="form-control" id="tipologia">
+                            <option>Appartamento</option>
+                            <option>Villa</option>
+                            <option>Attico</option>
+                            <option>Loft</option>
+                            <option>Rustico</option>
+                            <option>Commerciale</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="metri">Metri Quadri</label>
+                        <div class="input-with-suffix">
+                            <input type="number" class="form-control" id="metri" placeholder="120" oninput="updateCalculations()">
+                            <span class="input-suffix">m²</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="prezzoVenditore">Prezzo Venditore</label>
+                        <div class="input-with-suffix">
+                            <input type="number" class="form-control" id="prezzoVenditore" placeholder="250000" oninput="updateCalculations()">
+                            <span class="input-suffix">€</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="euroMetro">Prezzo al Metro Quadro</label>
+                    <div class="input-with-suffix">
+                        <input type="text" class="form-control" id="euroMetro" readonly style="background: var(--surface);">
+                        <span class="input-suffix">€/m²</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h3 class="section-title">Contatti</h3>
+                
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="agenziaContatto">Agenzia</label>
+                        <input type="text" class="form-control" id="agenziaContatto" placeholder="Nome agenzia">
+                    </div>
+                    <div class="form-group">
+                        <label for="agente">Agente</label>
+                        <input type="text" class="form-control" id="agente" placeholder="Nome e telefono">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="proprietario">Proprietario</label>
+                    <input type="text" class="form-control" id="proprietario" placeholder="Nome e contatti">
+                </div>
+
+                <div class="form-group">
+                    <label for="linkAnnuncio">Link Annuncio</label>
+                    <input type="url" class="form-control" id="linkAnnuncio" placeholder="https://...">
+                </div>
+            </section>
+
+            <section class="section">
+                <h3 class="section-title">Note</h3>
+                <textarea class="form-control" id="note" rows="5" 
+                          placeholder="Osservazioni, stato dell'immobile, lavori necessari..."></textarea>
+            </section>
+
+            <section class="section">
+                <h3 class="section-title">Documentazione Fotografica</h3>
+                <div class="photo-upload" onclick="document.getElementById('photoInput').click()">
+                    <div class="photo-upload-text">Clicca per caricare foto</div>
+                    <div class="photo-upload-hint">Trascina qui le foto o clicca per selezionare</div>
+                </div>
+                <input type="file" id="photoInput" multiple accept="image/*" style="display: none;" onchange="handlePhotos(event)">
+                <div class="photo-preview" id="photoPreview"></div>
+            </section>
+        </main>
+
+        <!-- Tab Parametri Finanziari -->
+        <main id="params" class="tab-content">
+            <section class="highlight-section">
+                <h3 class="section-title">Prezzo di Rivendita Stimato</h3>
+                <p class="disclaimer">Valore di partenza da cui parte tutto il calcolo</p>
+                <div class="form-group">
+                    <div class="input-with-suffix">
+                        <input type="number" class="form-control highlight-input" id="prezzoRivendita" 
+                               placeholder="450000" oninput="updateCalculations()">
+                        <span class="input-suffix">€</span>
+                    </div>
+                </div>
+            </section>
+
+            <h3 class="section-title" style="text-align: center;">Voci in Detrazione</h3>
+
+            <!-- Sezioni Costi -->
+            <div id="cost-sections-container">
+                <!-- Le categorie di costo verranno inserite qui da JS -->
+            </div>
+
+        </main>
+
+        <!-- Tab Risultati -->
+        <main id="results" class="tab-content">
+            <section class="calculation-section">
+                <h2 class="calculation-title">Proposta d'Acquisto</h2>
+                
+                <div class="calculation-row">
+                    <span>Prezzo Rivendita Stimato</span>
+                    <span id="calcRivendita">0 €</span>
+                </div>
+                <div class="calculation-row">
+                    <span>Totale Costi</span>
+                    <span id="calcCosti">0 €</span>
+                </div>
+                <div class="calculation-row">
+                    <span>Nostro Utile</span>
+                    <span id="calcUtile">0 €</span>
+                </div>
+                <div class="calculation-row">
+                    <span>Cifra da Offrire</span>
+                    <span id="calcOfferta">0 €</span>
+                </div>
+
+                <div class="calculation-result" id="finalResult">
+                    0 €
+                </div>
+                
+                <div style="text-align: center; margin-top: 16px;">
+                    <div style="font-size: 24px; font-weight: 600; color: white;">Offerta al m²</div>
+                    <div style="font-size: 32px; font-weight: 700; color: white; margin-top: 8px;" id="offertaMetro">0 €/m²</div>
+                </div>
+            </section>
+
+            <section class="price-comparison">
+                <div class="price-row">
+                    <span class="price-label">Prezzo Richiesta Vendita</span>
+                    <span class="price-value" id="prezzoRichiestaDisplay">0 €</span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">Prezzo al m² Richiesta</span>
+                    <span class="price-value" id="prezzoMetroRichiesta">0 €/m²</span>
+                </div>
+            </section>
+
+            <section class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-label">ROI</div>
+                    <div class="metric-value" id="roiValue">0%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Margine</div>
+                    <div class="metric-value" id="margineValue">0%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Differenza Venditore</div>
+                    <div class="metric-value" id="diffVenditore">0 €</div>
+                </div>
+            </section>
+
+            <section class="analysis-card">
+                <h3 class="analysis-title">Analisi ROI per Dimensione Città</h3>
+                
+                <div class="city-selector">
+                    <label for="citySize">Seleziona Dimensione Città:</label>
+                    <select id="citySize" onchange="updateCityAnalysis()" class="form-control" style="width: auto; display: inline-block;">
+                        <option value="">-- Seleziona --</option>
+                        <option value="grande">Città Grande (oltre 500.000 ab.)</option>
+                        <option value="media">Città Media (100.000 - 500.000 ab.)</option>
+                        <option value="piccola">Città Piccola (sotto 100.000 ab.)</option>
+                    </select>
+                </div>
+                
+                <div class="city-grid">
+                    <div class="city-card" id="cityGrande">
+                        <div class="city-type">Città Grandi</div>
+                        <div class="city-detail">Prime location CBD</div>
+                        <div class="city-roi">ROI: 18-22%</div>
+                    </div>
+                    <div class="city-card" id="cityMedia">
+                        <div class="city-type">Città Medie</div>
+                        <div class="city-detail">Zone semicentrali</div>
+                        <div class="city-roi">ROI: 22-28%</div>
+                    </div>
+                    <div class="city-card" id="cityPiccola">
+                        <div class="city-type">Città Piccole</div>
+                        <div class="city-detail">Mercati secondari</div>
+                        <div class="city-roi">ROI: 25-35%</div>
+                    </div>
+                </div>
+
+                <h4 class="analysis-subtitle">Analisi Operazione Corrente</h4>
+                <div id="operationAnalysis">
+                    <p style="color: var(--text-secondary); margin-bottom: 16px;" id="cityAnalysisText">
+                        Seleziona la dimensione della città per vedere il ROI atteso.
+                    </p>
+                    <div style="font-size: 48px; font-weight: 700; text-align: center; margin: 24px 0;" id="currentROI">0%</div>
+                    <div style="text-align: center; color: var(--text-secondary); font-size: 18px;" id="expectedROIRange"></div>
+                </div>
+
+                <div class="recommendation-box neutral" id="recommendationBox">
+                    <h4 style="font-size: 21px; margin-bottom: 12px;">Valutazione Operazione</h4>
+                    <p id="recommendationText">Seleziona la dimensione della città per ottenere una valutazione completa.</p>
+                </div>
+            </section>
+        </main>
+
+        <div id="status-message"></div>
+
+        <footer class="action-buttons">
+            <button class="btn btn-primary" onclick="saveProject()">Salva Progetto</button>
+            <button class="btn btn-secondary" onclick="openLoadModal()">Carica Progetto</button>
+            <button class="btn btn-success" onclick="printReport()">Stampa Report</button>
+            <button class="btn btn-secondary" onclick="newProject()">Nuovo Progetto</button>
+        </footer>
+    </div>
+    
+    <!-- Modal per caricamento progetti -->
+    <div id="load-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Carica Progetto da Remoto</h2>
+                <span class="modal-close" onclick="closeLoadModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <ul id="remote-projects-list">
+                    <!-- I progetti verranno caricati qui dinamicamente -->
+                    <li>Nessun progetto trovato.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="module">
+        // Importa le funzioni di Firebase necessarie
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Variabili globali per Firebase
+        let db, auth, userId, app;
+
+        // --- INIZIALIZZAZIONE FIREBASE ---
+        async function initializeFirebase() {
+            try {
+                const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        console.log("Utente autenticato:", userId);
+                    } else {
+                        console.log("Nessun utente autenticato.");
+                    }
+                });
+
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+            } catch (error) {
+                console.error("Errore durante l'inizializzazione di Firebase:", error);
+                showStatusMessage("Impossibile connettersi al database remoto.", "error");
+            }
+        }
+        
+        // --- FUNZIONI DI GESTIONE PROGETTI REMOTI ---
+
+        window.saveProject = async function() {
+            if (!userId) {
+                showStatusMessage("Autenticazione in corso, riprova tra un momento.", "error");
+                return;
+            }
+            const projectName = prompt("Inserisci un nome per il progetto:");
+            if (!projectName) return;
+
+            const projectData = collectAllData();
+            const projectRef = doc(db, `artifacts/${app.options.appId}/public/data/projects`, projectName);
+
+            try {
+                await setDoc(projectRef, { data: projectData, name: projectName, savedAt: new Date() }, { merge: true });
+                showStatusMessage(`Progetto "${projectName}" salvato con successo!`, "success");
+            } catch (error) {
+                console.error("Errore nel salvataggio del progetto:", error);
+                showStatusMessage("Errore durante il salvataggio del progetto.", "error");
+            }
+        };
+
+        window.openLoadModal = async function() {
+            if (!userId) {
+                showStatusMessage("Autenticazione in corso, riprova tra un momento.", "error");
+                return;
+            }
+            const modal = document.getElementById('load-modal');
+            const list = document.getElementById('remote-projects-list');
+            list.innerHTML = '<li>Caricamento progetti...</li>';
+            modal.style.display = 'flex';
+
+            try {
+                const projectsRef = collection(db, `artifacts/${app.options.appId}/public/data/projects`);
+                const querySnapshot = await getDocs(projectsRef);
+                
+                list.innerHTML = '';
+                if (querySnapshot.empty) {
+                    list.innerHTML = '<li>Nessun progetto trovato.</li>';
+                    return;
+                }
+
+                querySnapshot.forEach((doc) => {
+                    const project = doc.data();
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `
+                        <span class="project-name">${project.name}</span>
+                        <div class="project-actions">
+                            <button class="btn btn-secondary" onclick="loadProjectFromRemote('${doc.id}')">Carica</button>
+                            <button class="btn btn-delete" onclick="deleteProject('${doc.id}')">Elimina</button>
+                        </div>
+                    `;
+                    list.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error("Errore nel caricamento dei progetti:", error);
+                list.innerHTML = '<li>Errore nel caricamento dei progetti.</li>';
+            }
+        };
+
+        window.loadProjectFromRemote = async function(projectName) {
+            if (!userId) {
+                 showStatusMessage("Autenticazione in corso, riprova tra un momento.", "error");
+                 return;
+            }
+            try {
+                const projectRef = doc(db, `artifacts/${app.options.appId}/public/data/projects`, projectName);
+                const docSnap = await getDoc(projectRef);
+
+                if (docSnap.exists()) {
+                    restoreAllData(docSnap.data().data);
+                    showStatusMessage(`Progetto "${projectName}" caricato.`, "success");
+                    closeLoadModal();
+                } else {
+                    showStatusMessage("Progetto non trovato.", "error");
+                }
+            } catch (error) {
+                console.error("Errore nel caricamento del progetto:", error);
+                showStatusMessage("Errore durante il caricamento del progetto.", "error");
+            }
+        };
+
+        window.deleteProject = async function(projectName) {
+            if (!confirm(`Sei sicuro di voler eliminare il progetto "${projectName}"? L'azione è irreversibile.`)) {
+                return;
+            }
+            
+            try {
+                const projectRef = doc(db, `artifacts/${app.options.appId}/public/data/projects`, projectName);
+                await deleteDoc(projectRef);
+                showStatusMessage(`Progetto "${projectName}" eliminato.`, "success");
+                openLoadModal(); // Ricarica la lista
+            } catch (error) {
+                console.error("Errore nell'eliminazione del progetto:", error);
+                showStatusMessage("Errore durante l'eliminazione del progetto.", "error");
+            }
+        };
+        
+        window.closeLoadModal = function() {
+            document.getElementById('load-modal').style.display = 'none';
+        }
+
+        // --- Logica UI esistente (adattata a scope globale) ---
+        let currentOperation = 'rivendita';
+        let uploadedPhotos = [];
+        let selectedCity = '';
+
+        const costCategories = {
+            ristrutturazione: { name: "Ristrutturazione", items: ["Impresa Edile", "Infissi", "Impianto Elettrico", "Impianto Idraulico", "Pavimenti", "Tinteggiatura"] },
+            professionisti: { name: "Professionisti", items: ["Accatastamento", "Frazionamento", "Progetto Architettonico", "Pratiche Comunali", "Certificazioni Energetiche", "Collaudo Impianti"] },
+            costoDenaro: { name: "Costo Denaro", items: ["Interessi Mutuo", "Spese Istruttoria", "Perizia Banca", "Polizze Assicurative", "Costi Investitori", "Commissioni Finanziarie"] },
+            speseImmobile: { name: "Spese Immobile", items: ["Spese Condominiali", "Riscaldamento", "Utenze", "Manutenzione Ordinaria", "Assicurazione Fabbricato", "Tasse Comunali"] },
+            tasse: { name: "Tasse", items: ["IMU", "TARI", "Imposte Comunali"] },
+            attoCompravendita: { name: "Atto Compravendita", items: ["Notaio", "Imposta di Registro", "Imposte Ipotecarie e Catastali"] },
+            imprevisti: { name: "Imprevisti", items: ["Riserva Emergenze", "Lavori Extra", "Ritardi Cantiere", "Varianti Progetto"] },
+            agenzia: { name: "Agenzia", items: ["Provvigioni Acquisto", "Provvigioni Vendita"] },
+            utile: { name: "Utile Trading", items: ["Target Profitto"] }
+        };
+
+        function generateCostSections() {
+            const container = document.getElementById('cost-sections-container');
+            container.innerHTML = '';
+            for (const categoryId in costCategories) {
+                const category = costCategories[categoryId];
+                const categoryElement = document.createElement('div');
+                categoryElement.className = 'cost-category';
+                let itemsHTML = category.items.map(itemName => `
+                    <div class="cost-item">
+                        <span class="cost-item-name">${itemName}</span>
+                        <div class="cost-item-value">
+                            <input type="number" placeholder="0" oninput="updateCategoryTotal('${categoryId}')">
+                            <span>€</span>
+                        </div>
+                    </div>`).join('');
+                categoryElement.innerHTML = `
+                    <div class="cost-header" onclick="toggleCategory('${categoryId}')">
+                        <div class="category-name">${category.name}</div>
+                        <div class="category-total" id="tot${categoryId.charAt(0).toUpperCase() + categoryId.slice(1)}">0 €</div>
+                    </div>
+                    <div class="cost-items" id="${categoryId}">
+                        ${itemsHTML}
+                        ${categoryId !== 'utile' ? `
+                        <div class="add-item-control">
+                            <input type="text" id="custom-item-name-${categoryId}" placeholder="Nome nuova voce...">
+                            <button class="btn-add" onclick="addCustomItem('${categoryId}')">Aggiungi</button>
+                        </div>` : ''}
+                    </div>`;
+                container.appendChild(categoryElement);
+            }
+        }
+        
+        window.setOperationType = function(type) {
+            currentOperation = type;
+            document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            updateCalculations();
+        };
+
+        window.switchTab = function(tabName) {
+            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            const tabs = Array.from(document.querySelectorAll('.nav-tab'));
+            const tabToActivate = tabs.find(tab => tab.getAttribute('onclick').includes(`'${tabName}'`));
+            if(tabToActivate) tabToActivate.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        };
+
+        window.toggleCategory = function(categoryId) {
+            const items = document.getElementById(categoryId);
+            if (items) items.classList.toggle('active');
+        };
+
+        window.updateCategoryTotal = function(categoryId) {
+            const category = document.getElementById(categoryId);
+            if (!category) return;
+            const inputs = category.querySelectorAll('input[type="number"]');
+            let total = 0;
+            inputs.forEach(input => total += parseFloat(input.value) || 0);
+            const totalElement = document.getElementById('tot' + categoryId.charAt(0).toUpperCase() + categoryId.slice(1));
+            if (totalElement) totalElement.textContent = total.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' });
+            updateCalculations();
+        };
+
+        window.addCustomItem = function(categoryId) {
+            const nameInput = document.getElementById(`custom-item-name-${categoryId}`);
+            if (!nameInput) return;
+            const name = nameInput.value.trim();
+            if (!name) { nameInput.focus(); return; }
+            const category = document.getElementById(categoryId);
+            const addControl = category.querySelector('.add-item-control');
+            const newItem = document.createElement('div');
+            newItem.className = 'cost-item';
+            newItem.innerHTML = `
+                <span class="cost-item-name">${name}</span>
+                <div class="cost-item-value">
+                    <input type="number" placeholder="0" oninput="updateCategoryTotal('${categoryId}')">
+                    <span>€</span>
+                    <button class="btn-remove" onclick="removeItem(this, '${categoryId}')">Rimuovi</button>
+                </div>`;
+            category.insertBefore(newItem, addControl);
+            nameInput.value = '';
+            newItem.querySelector('input[type="number"]')?.focus();
+        };
+
+        window.removeItem = function(button, categoryId) {
+            button.closest('.cost-item')?.remove();
+            updateCategoryTotal(categoryId);
+        };
+        
+        window.updateCalculations = function() {
+            const metri = parseFloat(document.getElementById('metri').value) || 0;
+            const prezzoVenditore = parseFloat(document.getElementById('prezzoVenditore').value) || 0;
+            const prezzoRivendita = parseFloat(document.getElementById('prezzoRivendita').value) || 0;
+            const euroMetro = (metri > 0) ? (prezzoVenditore / metri) : 0;
+            document.getElementById('euroMetro').value = euroMetro.toFixed(2);
+            document.getElementById('prezzoMetroRichiesta').textContent = `${euroMetro.toFixed(2)} €/m²`;
+            document.getElementById('prezzoRichiestaDisplay').textContent = prezzoVenditore.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' });
+            let totaleCosti = 0;
+            for (const categoryId in costCategories) {
+                if(categoryId !== 'utile') {
+                    const category = document.getElementById(categoryId);
+                    if (category) {
+                        category.querySelectorAll('input[type="number"]').forEach(input => totaleCosti += parseFloat(input.value) || 0);
+                    }
+                }
+            }
+            let utile = 0;
+            const utileCategory = document.getElementById('utile');
+            if (utileCategory) {
+                utile = parseFloat(utileCategory.querySelector('input[type="number"]')?.value) || 0;
+            }
+            const offerta = prezzoRivendita - totaleCosti - utile;
+            document.getElementById('calcRivendita').textContent = prezzoRivendita.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' });
+            document.getElementById('calcCosti').textContent = totaleCosti.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' });
+            document.getElementById('calcUtile').textContent = utile.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' });
+            document.getElementById('calcOfferta').textContent = offerta.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' });
+            document.getElementById('finalResult').textContent = offerta.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' });
+            const offertaAlMetro = (metri > 0) ? (offerta / metri) : 0;
+            document.getElementById('offertaMetro').textContent = `${offertaAlMetro.toFixed(2)} €/m²`;
+            const costoTotaleOperazione = offerta + totaleCosti;
+            const roi = (costoTotaleOperazione > 0) ? (utile / costoTotaleOperazione * 100) : 0;
+            document.getElementById('roiValue').textContent = `${roi.toFixed(1)}%`;
+            document.getElementById('currentROI').textContent = `${roi.toFixed(1)}%`;
+            const margine = (prezzoRivendita > 0) ? (utile / prezzoRivendita * 100) : 0;
+            document.getElementById('margineValue').textContent = `${margine.toFixed(1)}%`;
+            const diff = prezzoVenditore - offerta;
+            const diffElement = document.getElementById('diffVenditore');
+            diffElement.textContent = diff.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' });
+            diffElement.style.color = diff >= 0 ? 'var(--success)' : 'var(--danger)';
+            analyzeOperation(roi);
+        };
+
+        window.updateCityAnalysis = function() {
+            const citySize = document.getElementById('citySize').value;
+            selectedCity = citySize;
+            document.querySelectorAll('.city-card').forEach(card => card.classList.remove('selected'));
+            let expectedMin = 0, expectedMax = 0, cityText = '';
+            if (citySize === 'grande') { [expectedMin, expectedMax, cityText] = [18, 22, 'Per città grandi (oltre 500.000 ab.)']; document.getElementById('cityGrande').classList.add('selected'); } 
+            else if (citySize === 'media') { [expectedMin, expectedMax, cityText] = [22, 28, 'Per città medie (100.000 - 500.000 ab.)']; document.getElementById('cityMedia').classList.add('selected'); } 
+            else if (citySize === 'piccola') { [expectedMin, expectedMax, cityText] = [25, 35, 'Per città piccole (sotto 100.000 ab.)']; document.getElementById('cityPiccola').classList.add('selected'); }
+            const currentROI = parseFloat(document.getElementById('roiValue').textContent) || 0;
+            if (citySize) {
+                document.getElementById('cityAnalysisText').textContent = `${cityText}, il ROI atteso è ${expectedMin}-${expectedMax}%. Il tuo ROI attuale è:`;
+                document.getElementById('expectedROIRange').textContent = `ROI target: ${expectedMin}% - ${expectedMax}%`;
+                analyzeOperationWithCity(currentROI, expectedMin, expectedMax);
+            } else {
+                document.getElementById('cityAnalysisText').textContent = 'Seleziona la dimensione della città per vedere il ROI atteso.';
+                document.getElementById('expectedROIRange').textContent = '';
+                analyzeOperation(currentROI);
+            }
+        };
+        
+        function analyzeOperation(roi) {
+            if (selectedCity) { updateCityAnalysis(); return; }
+            const box = document.getElementById('recommendationBox');
+            const text = document.getElementById('recommendationText');
+            box.className = 'recommendation-box neutral';
+            text.textContent = roi > 0 ? `ROI calcolato: ${roi.toFixed(1)}%. Seleziona la città per valutare l'operazione.` : 'Inserisci i parametri per una valutazione.';
+        }
+
+        function analyzeOperationWithCity(roi, minExpected, maxExpected) {
+            const box = document.getElementById('recommendationBox');
+            const text = document.getElementById('recommendationText');
+            if (roi === 0) { box.className = 'recommendation-box neutral'; text.textContent = 'Inserisci i parametri finanziari per una valutazione.'; return; }
+            if (roi > maxExpected) { box.className = 'recommendation-box success'; text.textContent = `OPERAZIONE ECCELLENTE: ROI del ${roi.toFixed(1)}% supera il massimo atteso (${maxExpected}%).`; } 
+            else if (roi >= minExpected) { box.className = 'recommendation-box success'; text.textContent = `OPERAZIONE CONSIGLIATA: ROI del ${roi.toFixed(1)}% rientra nel range ottimale (${minExpected}-${maxExpected}%).`; } 
+            else if (roi >= minExpected - 3) { box.className = 'recommendation-box neutral'; text.textContent = `DA VALUTARE: ROI del ${roi.toFixed(1)}% è leggermente sotto il minimo (${minExpected}%).`; } 
+            else { box.className = 'recommendation-box warning'; text.textContent = `OPERAZIONE NON CONSIGLIATA: ROI del ${roi.toFixed(1)}% è molto sotto il range atteso (${minExpected}-${maxExpected}%).`; }
+        }
+        
+        function showStatusMessage(message, type) {
+            const statusElement = document.getElementById('status-message');
+            statusElement.textContent = message;
+            statusElement.className = type; // 'success' o 'error'
+            statusElement.style.display = 'block';
+            setTimeout(() => { statusElement.style.display = 'none'; }, 4000);
+        }
+
+        // Funzioni ausiliarie (stub)
+        window.handlePhotos = function(event) { console.log("Caricamento foto non implementato."); };
+        
+        function collectAllData() {
+            const data = {};
+            document.querySelectorAll('input, textarea, select').forEach(element => {
+                if (element.id) {
+                    if (element.type === 'checkbox') data[element.id] = element.checked;
+                    else data[element.id] = element.value;
+                }
+            });
+            data.costItems = {};
+            for (const categoryId in costCategories) {
+                data.costItems[categoryId] = [];
+                const category = document.getElementById(categoryId);
+                if(category) {
+                    category.querySelectorAll('.cost-item').forEach(item => {
+                        const name = item.querySelector('.cost-item-name')?.textContent;
+                        const value = item.querySelector('input[type="number"]')?.value;
+                        data.costItems[categoryId].push({name, value});
+                    });
+                }
+            }
+            return data;
+        }
+
+        function restoreAllData(data) {
+            if(!data) return;
+            document.querySelectorAll('input, textarea, select').forEach(element => {
+                if (element.id && data[element.id] !== undefined) {
+                    if (element.type === 'checkbox') element.checked = data[element.id];
+                    else element.value = data[element.id];
+                }
+            });
+
+            // Ricostruisce le voci di costo
+            if (data.costItems) {
+                for (const categoryId in data.costItems) {
+                    const category = document.getElementById(categoryId);
+                    if(category) {
+                        // Rimuove le voci custom esistenti prima di ripristinare
+                        category.querySelectorAll('.cost-item').forEach((item, index) => {
+                             if(index >= costCategories[categoryId].items.length) item.remove();
+                        });
+
+                        const addControl = category.querySelector('.add-item-control');
+                        data.costItems[categoryId].forEach((itemData, index) => {
+                             const existingItems = category.querySelectorAll('.cost-item');
+                             if(index < existingItems.length) { // Aggiorna le voci di default
+                                 const input = existingItems[index].querySelector('input[type="number"]');
+                                 if(input) input.value = itemData.value || '0';
+                             } else { // Aggiunge le voci custom
+                                const newItem = document.createElement('div');
+                                newItem.className = 'cost-item';
+                                newItem.innerHTML = `
+                                    <span class="cost-item-name">${itemData.name}</span>
+                                    <div class="cost-item-value">
+                                        <input type="number" value="${itemData.value || 0}" oninput="updateCategoryTotal('${categoryId}')">
+                                        <span>€</span>
+                                        <button class="btn-remove" onclick="removeItem(this, '${categoryId}')">Rimuovi</button>
+                                    </div>`;
+                                category.insertBefore(newItem, addControl);
+                             }
+                        });
+                    }
+                    updateCategoryTotal(categoryId);
+                }
+            }
+            updateCalculations();
+            updateCityAnalysis();
+        }
+
+        window.newProject = function() { 
+            if(confirm("Vuoi iniziare un nuovo progetto? I dati non salvati verranno persi.")) {
+                location.reload(); 
+            }
+        };
+
+        window.printReport = function() {
+            document.getElementById('print-address').textContent = `Report Analisi: ${document.getElementById('indirizzo').value || 'N/D'}`;
+            document.getElementById('print-date').textContent = new Date().toLocaleDateString('it-IT');
+            window.print();
+        };
+
+        // --- ESECUZIONE ALL'AVVIO ---
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeFirebase();
+            generateCostSections();
+            updateCalculations();
+        });
+
+    </script>
 </body>
 </html>
+

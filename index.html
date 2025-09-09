@@ -1,697 +1,678 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="it">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlipMetrics - Analisi Investimenti Immobiliari</title>
+    <!-- PWA Manifest and Icons -->
+    <link rel="manifest" href="data:application/manifest+json,{&quot;name&quot;:&quot;FlipMetrics&quot;,&quot;short_name&quot;:&quot;FlipMetrics&quot;,&quot;start_url&quot;:&quot;.&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;background_color&quot;:&quot;#ffffff&quot;,&quot;theme_color&quot;:&quot;#007AFF&quot;,&quot;icons&quot;:[{&quot;src&quot;:&quot;https://i.ibb.co/9g38Z4v/icon-192x192.png&quot;,&quot;sizes&quot;:&quot;192x192&quot;,&quot;type&quot;:&quot;image/png&quot;},{&quot;src&quot;:&quot;https://i.ibb.co/sK0Y1Vq/icon-512x512.png&quot;,&quot;sizes&quot;:&quot;512x512&quot;,&quot;type&quot;:&quot;image/png&quot;}]}">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/9g38Z4v/icon-192x192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="FlipMetrics">
+    
+    <style>
+        :root { --primary: #007AFF; --secondary: #5856D6; --tertiary: #34C759; --gray-dark: #48484A; --gray-medium: #8E8E93; --gray-light: #C7C7CC; --background: #FFFFFF; --surface: #F5F5F7; --border: #D1D1D6; --text: #1C1C1E; --text-secondary: #86868B; --success: #34C759; --danger: #FF3B30; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif; background: var(--surface); color: var(--text); line-height: 1.47; }
+        .container { max-width: 1200px; margin: 40px auto; background: var(--background); border-radius: 18px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.07); }
+        .header { padding: 48px; text-align: center; border-bottom: 1px solid var(--border); }
+        .header h1 { font-size: 48px; font-weight: 600; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px;}
+        .header .subtitle { font-size: 21px; color: var(--text-secondary); }
+        .nav-tabs { display: flex; border-bottom: 1px solid var(--border); padding: 0 48px; }
+        .nav-tab { padding: 16px 24px; background: transparent; border: none; font-size: 17px; color: var(--text-secondary); cursor: pointer; position: relative; border-bottom: 3px solid transparent; margin-bottom: -1px; }
+        .nav-tab.active { font-weight: 500; }
+        .nav-tab:nth-child(1).active { color: var(--primary); border-bottom-color: var(--primary); }
+        .nav-tab:nth-child(2).active { color: var(--secondary); border-bottom-color: var(--secondary); }
+        .nav-tab:nth-child(3).active { color: var(--tertiary); border-bottom-color: var(--tertiary); }
+        .tab-content { display: none; padding: 48px; animation: fadeIn 0.3s; }
+        .tab-content.active { display: block; }
+        .section { margin-bottom: 48px; }
+        .section-title { font-size: 28px; font-weight: 500; margin-bottom: 24px; }
+        .form-group { margin-bottom: 24px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 8px; font-size: 15px; font-weight: 500; }
+        .form-control { width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: 10px; font-size: 17px; }
+        .input-with-suffix { position: relative; }
+        .input-suffix { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); pointer-events: none; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        input[type=number] { -moz-appearance: textfield; }
+        .photo-upload { border: 2px dashed var(--border); border-radius: 12px; padding: 32px; text-align: center; cursor: pointer; background: var(--surface); }
+        .photo-preview { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+        .photo-preview img { width: 100px; height: 100px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); }
+        .highlight-section { background: linear-gradient(135deg, #007AFF15 0%, #5856D615 100%); border-radius: 18px; padding: 32px; margin-bottom: 48px; }
+        .highlight-input { font-size: 32px; font-weight: 500; padding: 16px; text-align: center; border: 2px solid var(--primary); }
+        .cost-category { margin-bottom: 24px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+        .cost-header { padding: 16px 24px; background: var(--surface); display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .category-name { font-size: 17px; font-weight: 500; }
+        .category-total { font-size: 21px; font-weight: 600; color: var(--primary); }
+        .cost-items { padding: 24px; background: var(--background); display: none; }
+        .cost-items.active { display: block; }
+        .cost-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--surface); }
+        .cost-item:last-of-type { border-bottom: none; margin-bottom: 0; }
+        .cost-item-name { flex-basis: 50%; }
+        .cost-item-value { display: flex; align-items: center; gap: 8px; }
+        .cost-item-value input { width: 140px; text-align: right; }
+        .btn-add-wrapper { margin-top: 16px; }
+        .btn-add { display: inline-block; padding: 8px 16px; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; }
+        .btn-remove { background: var(--danger); color: white; border: none; border-radius: 6px; cursor: pointer; padding: 4px 12px; font-size: 14px; }
+        a.tel-link { text-decoration: none; }
+        .calculation-section { background: linear-gradient(135deg, var(--tertiary) 0%, var(--primary) 100%); border-radius: 18px; padding: 48px; color: white; }
+        .calculation-row { display: flex; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.2); font-size: 19px; }
+        .calculation-result { font-size: 48px; font-weight: 700; text-align: center; margin-top: 32px; padding: 32px; background: rgba(255,255,255,0.15); border-radius: 12px; }
+        .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 32px; }
+        .metric-card { background: var(--background); padding: 24px; border-radius: 12px; text-align: center; border: 1px solid var(--border); }
+        .metric-label { font-size: 13px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 8px;}
+        .metric-value { font-size: 32px; font-weight: 600; }
+        .analysis-card { background: var(--background); border: 1px solid var(--border); border-radius: 12px; padding: 32px; margin-bottom: 24px; }
+        .city-selector { text-align: center; margin-bottom: 24px; }
+        .city-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }
+        .city-card { background: var(--surface); padding: 24px; border-radius: 12px; text-align: center; transition: all 0.3s; }
+        .city-card.selected { border: 2px solid var(--primary); background: white; transform: scale(1.05); }
+        .city-roi { font-size: 28px; font-weight: 700; color: var(--primary); }
+        .recommendation-box { color: white; padding: 24px; border-radius: 12px; margin-top: 24px; }
+        .recommendation-box.success { background: var(--success); }
+        .recommendation-box.warning { background: var(--danger); }
+        .recommendation-box.neutral { background: var(--gray-medium); }
+        .action-buttons { display: flex; justify-content: center; gap: 16px; padding: 48px; background: var(--surface); }
+        .btn { padding: 12px 32px; border-radius: 980px; font-size: 17px; cursor: pointer; border: none; }
+        .btn:disabled { background-color: var(--gray-light); cursor: not-allowed; opacity: 0.7; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(5px); }
+        .modal-content { background-color: var(--background); margin: 10% auto; padding: 32px; width: 80%; max-width: 700px; border-radius: 18px; animation: fadeIn 0.3s; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
+        .modal-title { font-size: 24px; }
+        .close-btn { color: var(--gray-medium); font-size: 28px; cursor: pointer; }
+        .project-list { list-style: none; padding: 0; max-height: 400px; overflow-y: auto; }
+        .project-item { display: flex; justify-content: space-between; align-items: center; padding: 16px; border-radius: 12px; margin-bottom: 12px; background: var(--surface); }
+        .project-info .project-name { font-size: 18px; font-weight: 500; }
+        .project-info .project-date { font-size: 14px; color: var(--text-secondary); }
+        .project-actions button { background: none; border: none; cursor: pointer; padding: 8px; }
+        .project-actions .icon { width: 24px; height: 24px; }
+        .status-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--gray-dark); color: white; text-align: center; padding: 8px; font-size: 14px; z-index: 1001; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @media (max-width: 768px) { .container { margin:0; border-radius:0; } .grid-2, .metrics-grid, .city-grid { grid-template-columns: 1fr; } .action-buttons { flex-direction:column; } }
+    </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="it"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;FlipMetrics - Analisi Investimenti Immobiliari&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- PWA Manifest and Icons --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="manifest" href="data:application/manifest+json,{&amp;quot;name&amp;quot;:&amp;quot;FlipMetrics&amp;quot;,&amp;quot;short_name&amp;quot;:&amp;quot;FlipMetrics&amp;quot;,&amp;quot;start_url&amp;quot;:&amp;quot;.&amp;quot;,&amp;quot;display&amp;quot;:&amp;quot;standalone&amp;quot;,&amp;quot;background_color&amp;quot;:&amp;quot;#ffffff&amp;quot;,&amp;quot;theme_color&amp;quot;:&amp;quot;#007AFF&amp;quot;,&amp;quot;icons&amp;quot;:[{&amp;quot;src&amp;quot;:&amp;quot;https://i.ibb.co/9g38Z4v/icon-192x192.png&amp;quot;,&amp;quot;sizes&amp;quot;:&amp;quot;192x192&amp;quot;,&amp;quot;type&amp;quot;:&amp;quot;image/png&amp;quot;},{&amp;quot;src&amp;quot;:&amp;quot;https://i.ibb.co/sK0Y1Vq/icon-512x512.png&amp;quot;,&amp;quot;sizes&amp;quot;:&amp;quot;512x512&amp;quot;,&amp;quot;type&amp;quot;:&amp;quot;image/png&amp;quot;}]}"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="apple-touch-icon" href="https://i.ibb.co/9g38Z4v/icon-192x192.png"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="apple-mobile-web-app-title" content="FlipMetrics"&gt;</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>:root { --primary: #007AFF; --secondary: #5856D6; --tertiary: #34C759; --gray-dark: #48484A; --gray-medium: #8E8E93; --gray-light: #C7C7CC; --background: #FFFFFF; --surface: #F5F5F7; --border: #D1D1D6; --text: #1C1C1E; --text-secondary: #86868B; --success: #34C759; --danger: #FF3B30; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>* { margin: 0; padding: 0; box-sizing: border-box; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Helvetica, Arial, sans-serif; background: var(--surface); color: var(--text); line-height: 1.47; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.container { max-width: 1200px; margin: 40px auto; background: var(--background); border-radius: 18px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.07); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.header { padding: 48px; text-align: center; border-bottom: 1px solid var(--border); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.header h1 { font-size: 48px; font-weight: 600; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 8px;}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.header .subtitle { font-size: 21px; color: var(--text-secondary); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.nav-tabs { display: flex; border-bottom: 1px solid var(--border); padding: 0 48px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.nav-tab { padding: 16px 24px; background: transparent; border: none; font-size: 17px; color: var(--text-secondary); cursor: pointer; position: relative; border-bottom: 3px solid transparent; margin-bottom: -1px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.nav-tab.active { font-weight: 500; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.nav-tab:nth-child(1).active { color: var(--primary); border-bottom-color: var(--primary); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.nav-tab:nth-child(2).active { color: var(--secondary); border-bottom-color: var(--secondary); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.nav-tab:nth-child(3).active { color: var(--tertiary); border-bottom-color: var(--tertiary); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.tab-content { display: none; padding: 48px; animation: fadeIn 0.3s; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.tab-content.active { display: block; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.section { margin-bottom: 48px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.section-title { font-size: 28px; font-weight: 500; margin-bottom: 24px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.form-group { margin-bottom: 24px; text-align: left; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.form-group label { display: block; margin-bottom: 8px; font-size: 15px; font-weight: 500; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.form-control { width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: 10px; font-size: 17px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.input-with-suffix { position: relative; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.input-suffix { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--text-secondary); pointer-events: none; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Nasconde le frecce negli input di tipo numero */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>input[type=number]::-webkit-inner-spin-button,<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>input[type=number]::-webkit-outer-spin-button {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>-webkit-appearance: none;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>input[type=number] {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>-moz-appearance: textfield;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.photo-upload { border: 2px dashed var(--border); border-radius: 12px; padding: 32px; text-align: center; cursor: pointer; background: var(--surface); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.photo-preview { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.photo-preview img { width: 100px; height: 100px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.highlight-section { background: linear-gradient(135deg, #007AFF15 0%, #5856D615 100%); border-radius: 18px; padding: 32px; margin-bottom: 48px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.highlight-input { font-size: 32px; font-weight: 500; padding: 16px; text-align: center; border: 2px solid var(--primary); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cost-category { margin-bottom: 24px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cost-header { padding: 16px 24px; background: var(--surface); display: flex; justify-content: space-between; align-items: center; cursor: pointer; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.category-name { font-size: 17px; font-weight: 500; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.category-total { font-size: 21px; font-weight: 600; color: var(--primary); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cost-items { padding: 24px; background: var(--background); display: none; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cost-items.active { display: block; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cost-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--surface); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cost-item:last-of-type { border-bottom: none; margin-bottom: 0; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cost-item-name { flex-basis: 50%; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cost-item-value { display: flex; align-items: center; gap: 8px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.cost-item-value input { width: 140px; text-align: right; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.btn-add-wrapper { margin-top: 16px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.btn-add { display: inline-block; padding: 8px 16px; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.btn-remove { background: var(--danger); color: white; border: none; border-radius: 6px; cursor: pointer; padding: 4px 12px; font-size: 14px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>a.tel-link { text-decoration: none; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.calculation-section { background: linear-gradient(135deg, var(--tertiary) 0%, var(--primary) 100%); border-radius: 18px; padding: 48px; color: white; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.calculation-row { display: flex; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.2); font-size: 19px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.calculation-result { font-size: 48px; font-weight: 700; text-align: center; margin-top: 32px; padding: 32px; background: rgba(255,255,255,0.15); border-radius: 12px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 32px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.metric-card { background: var(--background); padding: 24px; border-radius: 12px; text-align: center; border: 1px solid var(--border); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.metric-label { font-size: 13px; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 8px;}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.metric-value { font-size: 32px; font-weight: 600; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.analysis-card { background: var(--background); border: 1px solid var(--border); border-radius: 12px; padding: 32px; margin-bottom: 24px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.city-selector { text-align: center; margin-bottom: 24px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.city-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.city-card { background: var(--surface); padding: 24px; border-radius: 12px; text-align: center; transition: all 0.3s; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.city-card.selected { border: 2px solid var(--primary); background: white; transform: scale(1.05); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.city-roi { font-size: 28px; font-weight: 700; color: var(--primary); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.recommendation-box { color: white; padding: 24px; border-radius: 12px; margin-top: 24px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.recommendation-box.success { background: var(--success); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.recommendation-box.warning { background: var(--danger); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.recommendation-box.neutral { background: var(--gray-medium); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.action-buttons { display: flex; justify-content: center; gap: 16px; padding: 48px; background: var(--surface); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.btn { padding: 12px 32px; border-radius: 980px; font-size: 17px; cursor: pointer; border: none; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.btn:disabled { background-color: var(--gray-light); cursor: not-allowed; opacity: 0.7; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(5px); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.modal-content { background-color: var(--background); margin: 10% auto; padding: 32px; width: 80%; max-width: 700px; border-radius: 18px; animation: fadeIn 0.3s; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.modal-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 16px; border-bottom: 1px solid var(--border); margin-bottom: 24px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.modal-title { font-size: 24px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.close-btn { color: var(--gray-medium); font-size: 28px; cursor: pointer; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.project-list { list-style: none; padding: 0; max-height: 400px; overflow-y: auto; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.project-item { display: flex; justify-content: space-between; align-items: center; padding: 16px; border-radius: 12px; margin-bottom: 12px; background: var(--surface); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.project-info .project-name { font-size: 18px; font-weight: 500; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.project-info .project-date { font-size: 14px; color: var(--text-secondary); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.project-actions button { background: none; border: none; cursor: pointer; padding: 8px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.project-actions .icon { width: 24px; height: 24px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.status-bar { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--gray-dark); color: white; text-align: center; padding: 8px; font-size: 14px; z-index: 1001; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>@media (max-width: 768px) { .container { margin:0; border-radius:0; } .grid-2, .metrics-grid, .city-grid { grid-template-columns: 1fr; } .action-buttons { flex-direction:column; } }</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Header --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h1&gt;FlipMetrics&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="subtitle"&gt;Analisi Professionale per Investimenti Immobiliari&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Navigation Tabs --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="nav-tabs"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="nav-tab active" onclick="switchTab(event, 'info')"&gt;Informazioni&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="nav-tab" onclick="switchTab(event, 'params')"&gt;Parametri Finanziari&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="nav-tab" onclick="switchTab(event, 'results')"&gt;Analisi&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Tab: Informazioni --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="info" class="tab-content active"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3 class="section-title"&gt;Dettagli Immobile&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="form-group"&gt;&lt;label&gt;Indirizzo Completo&lt;/label&gt;&lt;input type="text" class="form-control" id="indirizzo"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="grid-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;&lt;label&gt;Piano&lt;/label&gt;&lt;input type="text" class="form-control" id="piano"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;&lt;label&gt;Tipologia&lt;/label&gt;&lt;select class="form-control" id="tipologia"&gt;&lt;option&gt;Appartamento&lt;/option&gt;&lt;option&gt;Villa&lt;/option&gt;&lt;option&gt;Attico&lt;/option&gt;&lt;option&gt;Loft&lt;/option&gt;&lt;/select&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="grid-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;&lt;label&gt;Metri Quadri&lt;/label&gt;&lt;div class="input-with-suffix"&gt;&lt;input type="number" class="form-control" id="metri" oninput="updateCalculations()"&gt;&lt;span class="input-suffix"&gt;m²&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;&lt;label&gt;Prezzo Venditore&lt;/label&gt;&lt;div class="input-with-suffix"&gt;&lt;input type="number" class="form-control" id="prezzoVenditore" oninput="updateCalculations()"&gt;&lt;span class="input-suffix"&gt;€&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="form-group"&gt;&lt;label&gt;Prezzo al Metro Quadro&lt;/label&gt;&lt;div class="input-with-suffix"&gt;&lt;input type="text" class="form-control" id="euroMetro" readonly style="background: var(--surface);"&gt;&lt;span class="input-suffix"&gt;€/m²&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3 class="section-title"&gt;Contatti&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="grid-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label&gt;Agenzia&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="text" class="form-control" id="agenzia"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label&gt;Telefono Agenzia&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a id="telAgenziaLink" class="tel-link"&gt;&lt;input type="tel" class="form-control" id="telAgenzia" oninput="updateTelLink(this)"&gt;&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label&gt;Agente&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="text" class="form-control" id="agente"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label&gt;Telefono Agente&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a id="telAgenteLink" class="tel-link"&gt;&lt;input type="tel" class="form-control" id="telAgente" oninput="updateTelLink(this)"&gt;&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label&gt;Proprietario&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;input type="text" class="form-control" id="proprietario"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="form-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;label&gt;Telefono Proprietario&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a id="telProprietarioLink" class="tel-link"&gt;&lt;input type="tel" class="form-control" id="telProprietario" oninput="updateTelLink(this)"&gt;&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="form-group"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;label&gt;Link Annuncio&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;input type="url" class="form-control" id="linkAnnuncio"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3 class="section-title"&gt;Note&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;textarea class="form-control" id="note" rows="5"&gt;&lt;/textarea&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>&lt;h3 class="section-title"&gt;Documentazione Fotografica&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="photo-upload" onclick="document.getElementById('photoInput').click()"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;Clicca per caricare foto&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;input type="file" id="photoInput" multiple accept="image/*" style="display: none;" onchange="handlePhotos(event)"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="photo-preview" id="photoPreview"&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Tab: Parametri Finanziari --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="params" class="tab-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="highlight-section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3 class="section-title"&gt;Prezzo di Rivendita Stimato&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="input-with-suffix"&gt;&lt;input type="number" class="form-control highlight-input" id="prezzoRivendita" oninput="updateCalculations()"&gt;&lt;span class="input-suffix"&gt;€&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="cost-categories-container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Voci verranno popolate da JavaScript --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Tab: Analisi --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="results" class="tab-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="calculation-section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="calculation-title"&gt;Proposta d'Acquisto&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="calculation-row"&gt;&lt;span&gt;Prezzo Rivendita Stimato&lt;/span&gt;&lt;span id="calcRivendita"&gt;0 €&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="calculation-row"&gt;&lt;span&gt;Totale Costi&lt;/span&gt;&lt;span id="calcCosti"&gt;0 €&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="calculation-row"&gt;&lt;span&gt;Nostro Utile&lt;/span&gt;&lt;span id="calcUtile"&gt;0 €&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="calculation-row"&gt;&lt;span&gt;Cifra da Offrire&lt;/span&gt;&lt;span id="calcOfferta"&gt;0 €&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="calculation-result" id="finalResult"&gt;0 €&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="metrics-grid"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="metric-card"&gt;&lt;div class="metric-label"&gt;ROI&lt;/div&gt;&lt;div class="metric-value" id="roiValue"&gt;0%&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="metric-card"&gt;&lt;div class="metric-label"&gt;Margine&lt;/div&gt;&lt;div class="metric-value" id="margineValue"&gt;0%&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="metric-card"&gt;&lt;div class="metric-label"&gt;Differenza Venditore&lt;/div&gt;&lt;div class="metric-value" id="diffVenditore"&gt;0 €&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="analysis-card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3 class="analysis-title"&gt;Analisi ROI per Dimensione Città&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="city-selector"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;label&gt;Seleziona Dimensione Città:&lt;/label&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;select id="citySize" onchange="updateCityAnalysis()" class="form-control" style="width: auto; display: inline-block;"&gt;&lt;option value=""&gt;-- Seleziona --&lt;/option&gt;&lt;option value="grande"&gt;Città Grande&lt;/option&gt;&lt;option value="media"&gt;Città Media&lt;/option&gt;&lt;option value="piccola"&gt;Città Piccola&lt;/option&gt;&lt;/select&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="city-grid"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="city-card" id="cityGrande"&gt;&lt;div class="city-type"&gt;Città Grandi&lt;/div&gt;&lt;div class="city-roi"&gt;ROI: 18-22%&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="city-card" id="cityMedia"&gt;&lt;div class="city-type"&gt;Città Medie&lt;/div&gt;&lt;div class="city-roi"&gt;ROI: 22-28%&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="city-card" id="cityPiccola"&gt;&lt;div class="city-type"&gt;Città Piccole&lt;/div&gt;&lt;div class="city-roi"&gt;ROI: 25-35%&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="recommendationBox" class="recommendation-box neutral"&gt;&lt;p id="recommendationText"&gt;Seleziona la dimensione della città per ottenere una valutazione.&lt;/p&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Action Buttons --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="action-buttons"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button id="saveBtn" class="btn btn-primary" onclick="saveProject()"&gt;Salva Progetto&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button id="manageBtn" class="btn btn-secondary" onclick="openProjectModal()"&gt;Gestisci Progetti&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="btn btn-success" onclick="printReport()"&gt;Stampa Report&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="btn btn-secondary" onclick="newProject()"&gt;Nuovo Progetto&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Modal for Project Management --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="projectModal" class="modal"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="modal-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="modal-header"&gt;&lt;h2 class="modal-title"&gt;I Tuoi Progetti Salvati&lt;/h2&gt;&lt;span class="close-btn" onclick="closeProjectModal()"&gt;&amp;times;&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;ul id="projectList" class="project-list"&gt;&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Status Bar --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="statusBar" class="status-bar" style="display: none;"&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script type="module"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>import { getFirestore, doc, setDoc, getDoc, deleteDoc, collection, query, where, getDocs, Timestamp, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";</p>
-<p class="p1"><span class="Apple-converted-space">        </span>import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- Firebase Configuration ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>const firebaseConfig = {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>apiKey: "AIzaSyAqSe9ayymGSdVdLm4Dpl3-tLEkettrIkA",</p>
-<p class="p1"><span class="Apple-converted-space">            </span>authDomain: "flipmetrics-database.firebaseapp.com",</p>
-<p class="p1"><span class="Apple-converted-space">            </span>projectId: "flipmetrics-database",</p>
-<p class="p1"><span class="Apple-converted-space">            </span>storageBucket: "flipmetrics-database.appspot.com",</p>
-<p class="p1"><span class="Apple-converted-space">            </span>messagingSenderId: "718086843012",</p>
-<p class="p1"><span class="Apple-converted-space">            </span>appId: "1:718086843012:web:7e28dff7dcfb12bbb670d1"</p>
-<p class="p1"><span class="Apple-converted-space">        </span>};</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- App State &amp; Structure ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let app, auth, db, storage, userId;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let isAuthReady = false;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>let uploadedPhotos = [];<span class="Apple-converted-space"> </span></p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>const costStructure = {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'Ristrutturazione': ['Impresa Edile', 'Infissi', 'Impianto Elettrico', 'Impianto Idraulico', 'Pavimenti', 'Tinteggiatura'],</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'Professionisti': ['Accatastamento', 'Frazionamento', 'Progetto Architettonico', 'Pratiche Comunali', 'Certificazioni Energetiche', 'Collaudo Impianti'],</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'Costo Denaro': ['Interessi Mutuo', 'Spese Istruttoria', 'Perizia Banca', 'Polizze Assicurative', 'Costi Investitori', 'Commissioni Finanziarie'],</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'Spese Immobile': ['Spese Condominiali', 'Riscaldamento', 'Utenze', 'Manutenzione Ordinaria', 'Assicurazione Fabbricato', 'Tasse Comunali'],</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'Tasse': ['IMU', 'TARI', 'Imposte Comunali'],</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'Atto Compravendita': ['Notaio', 'Imposta di Registro', 'Imposte Ipotecarie e Catastali'],</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'Imprevisti': ['Riserva Emergenze', 'Lavori Extra', 'Ritardi Cantiere', 'Varianti Progetto'],</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'Agenzia': ['Provvigioni Acquisto', 'Provvigioni Vendita'],</p>
-<p class="p1"><span class="Apple-converted-space">            </span>'Utile Trading': ['Target Profitto']</p>
-<p class="p1"><span class="Apple-converted-space">        </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- Initialization ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>window.onload = () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('saveBtn').disabled = true;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('manageBtn').disabled = true;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>initializeFirebase();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>renderCostCategories();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>updateCalculations();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function initializeFirebase() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>app = initializeApp(firebaseConfig);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>auth = getAuth(app);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>db = getFirestore(app);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>storage = getStorage(app);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>updateStatus("Autenticazione in corso...");</p>
-<p class="p1"><span class="Apple-converted-space">                </span>onAuthStateChanged(auth, user =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (user) {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>isAuthReady = true;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>userId = user.uid;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>updateStatus("Autenticato. Pronto.", true);</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>document.getElementById('saveBtn').disabled = false;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>document.getElementById('manageBtn').disabled = false;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>signInAnonymously(auth).catch(error =&gt; updateStatus("Errore di autenticazione.", false, 10000));</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} catch (error) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>console.error("Firebase Init Error:", error);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>updateStatus("ERRORE: Configurazione Firebase non valida.", false, 0);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function renderCostCategories() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const container = document.getElementById('cost-categories-container');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>container.innerHTML = '';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>for (const categoryName in costStructure) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const items = costStructure[categoryName];</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const categoryId = categoryName.replace(/\s/g, '');</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>const categoryEl = document.createElement('div');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>categoryEl.className = 'cost-category';</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>let itemsHtml = items.map(itemName =&gt; `</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="cost-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="cost-item-name"&gt;${itemName}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="cost-item-value"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;input type="number" class="form-control" oninput="updateCategoryTotal('${categoryName}')"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span&gt;€&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>`).join('');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>const addButtonHtml = categoryName !== 'Utile Trading' ?<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>`&lt;div class="btn-add-wrapper"&gt;&lt;button class="btn-add" onclick="addCustomItem(event, '${categoryName}')"&gt;Aggiungi Voce&lt;/button&gt;&lt;/div&gt;` : '';</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>categoryEl.innerHTML = `</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="cost-header" onclick="toggleCategory(event)"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="category-name"&gt;${categoryName}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="category-total" id="tot${categoryId}"&gt;0 €&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="cost-items"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>${itemsHtml}</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>${addButtonHtml}</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>`;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>container.appendChild(categoryEl);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- Status &amp; UI ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function updateStatus(message, success = null, duration = 3000) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const statusBar = document.getElementById('statusBar');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>statusBar.textContent = message;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>statusBar.style.display = 'block';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>statusBar.style.backgroundColor = success === true ? 'var(--success)' : success === false ? 'var(--danger)' : 'var(--gray-dark)';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (duration &gt; 0) setTimeout(() =&gt; statusBar.style.display = 'none', duration);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function switchTab(event, tabName) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('.nav-tab, .tab-content').forEach(el =&gt; el.classList.remove('active'));</p>
-<p class="p1"><span class="Apple-converted-space">            </span>event.currentTarget.classList.add('active');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById(tabName).classList.add('active');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function toggleCategory(event) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>event.currentTarget.nextElementSibling.classList.toggle('active');</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function addCustomItem(event, categoryName) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const name = prompt("Nome della nuova voce:");</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (!name) return;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const container = event.currentTarget.parentElement.parentElement;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const newItem = document.createElement('div');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>newItem.className = 'cost-item dynamic';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>newItem.innerHTML = `</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="cost-item-name"&gt;${name}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="cost-item-value"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;input type="number" class="form-control" oninput="updateCategoryTotal('${categoryName}')"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span&gt;€&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button class="btn-remove" onclick="this.closest('.cost-item').remove(); updateCategoryTotal('${categoryName}')"&gt;Rimuovi&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>container.insertBefore(newItem, event.currentTarget.parentElement);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function updateTelLink(inputElement) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const linkElement = inputElement.parentElement;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let phoneNumber = inputElement.value.replace(/\D/g, ''); // Rimuove non-numeri</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (phoneNumber) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>linkElement.href = `tel:${phoneNumber}`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>linkElement.href = '#';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- Calculations ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function updateCategoryTotal(categoryName) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const header = Array.from(document.querySelectorAll('.category-name')).find(el =&gt; el.textContent === categoryName);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (!header) return;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const container = header.closest('.cost-category').querySelector('.cost-items');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const inputs = container.querySelectorAll('input[type="number"]');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let total = 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>inputs.forEach(input =&gt; total += parseFloat(input.value) || 0);</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const categoryId = categoryName.replace(/\s/g, '');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>header.closest('.cost-category').querySelector('.category-total').textContent = `${total.toLocaleString('it-IT')} €`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>updateCalculations();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function updateCalculations() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const metri = parseFloat(document.getElementById('metri').value) || 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const prezzoVenditore = parseFloat(document.getElementById('prezzoVenditore').value) || 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('euroMetro').value = metri &gt; 0 ? (prezzoVenditore / metri).toFixed(2) : '0.00';</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const prezzoRivendita = parseFloat(document.getElementById('prezzoRivendita').value) || 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>let totaleCosti = 0, utile = 0;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('.cost-category').forEach(categoryEl =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const categoryName = categoryEl.querySelector('.category-name').textContent;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>let categoryTotal = 0;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>categoryEl.querySelectorAll('.cost-item input[type="number"]').forEach(input =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>categoryTotal += parseFloat(input.value) || 0;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (categoryName === 'Utile Trading') utile = categoryTotal;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>else totaleCosti += categoryTotal;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const offerta = prezzoRivendita - totaleCosti - utile;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const roi = (utile &gt; 0 &amp;&amp; offerta &gt; 0) ? (utile / offerta * 100) : 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const margine = prezzoRivendita &gt; 0 ? (utile / prezzoRivendita * 100) : 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const diff = prezzoVenditore - offerta;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('calcRivendita').textContent = `${prezzoRivendita.toLocaleString('it-IT')} €`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('calcCosti').textContent = `${totaleCosti.toLocaleString('it-IT')} €`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('calcUtile').textContent = `${utile.toLocaleString('it-IT')} €`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('calcOfferta').textContent = `${offerta.toLocaleString('it-IT')} €`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('finalResult').textContent = `${offerta.toLocaleString('it-IT')} €`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('roiValue').textContent = `${roi.toFixed(1)}%`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('margineValue').textContent = `${margine.toFixed(1)}%`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('diffVenditore').textContent = `${diff.toLocaleString('it-IT')} €`;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>updateCityAnalysis();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function updateCityAnalysis() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const selectedCity = document.getElementById('citySize').value;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('.city-card').forEach(c =&gt; c.classList.remove('selected'));</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const recommendationBox = document.getElementById('recommendationBox');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const recommendationText = document.getElementById('recommendationText');</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (!selectedCity) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>recommendationBox.className = 'recommendation-box neutral';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>recommendationText.textContent = 'Seleziona la dimensione della città per ottenere una valutazione.';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById(`city${selectedCity.charAt(0).toUpperCase() + selectedCity.slice(1)}`).classList.add('selected');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const roi = parseFloat(document.getElementById('roiValue').textContent) || 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const ranges = { grande: [18, 22], media: [22, 28], piccola: [25, 35] };</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const [min, max] = ranges[selectedCity];</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (roi &gt;= max) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>recommendationBox.className = 'recommendation-box success';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>recommendationText.textContent = `ECCELLENTE: ROI del ${roi.toFixed(1)}% supera il massimo atteso (${max}%).`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} else if (roi &gt;= min) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>recommendationBox.className = 'recommendation-box success';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>recommendationText.textContent = `CONSIGLIATA: ROI del ${roi.toFixed(1)}% rientra nel range ottimale (${min}-${max}%).`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} else if (roi &gt;= min - 3) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>recommendationBox.className = 'recommendation-box neutral';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>recommendationText.textContent = `DA VALUTARE: ROI del ${roi.toFixed(1)}% è leggermente sotto il minimo (${min}%).`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>recommendationBox.className = 'recommendation-box warning';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>recommendationText.textContent = `NON CONSIGLIATA: ROI del ${roi.toFixed(1)}% è troppo basso per questo mercato.`;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- Photo Management ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>async function handlePhotos(event) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (!isAuthReady) return updateStatus("Attendi l'autenticazione.", false);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const files = event.target.files;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>updateStatus(`Caricamento di ${files.length} foto...`);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>for (let file of files) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const storageRef = ref(storage, `photos/${userId}/${Date.now()}_${file.name}`);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>await uploadBytes(storageRef, file);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const downloadURL = await getDownloadURL(storageRef);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>uploadedPhotos.push(downloadURL);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>renderPhotos();</p>
-<p class="p1"><span class="Apple-converted-space">                </span>} catch (error) {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>console.error("Photo upload error:", error);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>updateStatus("Errore caricamento foto. Controlla la configurazione di Storage.", false);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>updateStatus("Caricamento foto completato.", true);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function renderPhotos() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const preview = document.getElementById('photoPreview');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>preview.innerHTML = '';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>uploadedPhotos.forEach(url =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const img = document.createElement('img');</p>
-<p class="p1"><span class="Apple-converted-space">                </span>img.src = url;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>preview.appendChild(img);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// --- Project Data Management (Cloud) ---</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function collectAllData() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const data = {};</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('input, textarea, select').forEach(el =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (el.id) data[el.id] = el.value;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>data.costItems = {};</p>
-<p class="p1"><span class="Apple-converted-space">             </span>document.querySelectorAll('.cost-category').forEach(categoryEl =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const categoryName = categoryEl.querySelector('.category-name').textContent;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>data.costItems[categoryName] = [];</p>
-<p class="p1"><span class="Apple-converted-space">                </span>categoryEl.querySelectorAll('.cost-item').forEach(itemEl =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const name = itemEl.querySelector('.cost-item-name').textContent;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const value = itemEl.querySelector('input[type="number"]').value;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>data.costItems[categoryName].push({ name, value });</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>data.photos = uploadedPhotos;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>return data;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>async function saveProject() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (!isAuthReady) return;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const projectName = prompt('Nome del progetto:');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (!projectName) return;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>updateStatus(`Salvataggio di "${projectName}"...`);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>await setDoc(doc(db, "projects", projectName), {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>name: projectName,</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>savedAt: Timestamp.now(),</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>userId: userId,</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>data: collectAllData()</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">                </span>updateStatus(`Progetto "${projectName}" salvato!`, true);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} catch (error) { updateStatus("Errore durante il salvataggio.", false); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function restoreAllData(data) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>newProject();</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>for (const key in data) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const element = document.getElementById(key);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (element) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>element.value = data[key];</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (element.type === 'tel') updateTelLink(element);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (data.costItems) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>for (const categoryName in data.costItems) {</p>
-<p class="p1"><span class="Apple-converted-space">                     </span>const header = Array.from(document.querySelectorAll('.category-name')).find(el =&gt; el.textContent === categoryName);</p>
-<p class="p1"><span class="Apple-converted-space">                     </span>if (!header) continue;</p>
-<p class="p1"><span class="Apple-converted-space">                     </span>const container = header.closest('.cost-category').querySelector('.cost-items');</p>
-<p class="p2"><span class="Apple-converted-space">                     </span></p>
-<p class="p1"><span class="Apple-converted-space">                     </span>container.querySelectorAll('.cost-item.dynamic').forEach(item =&gt; item.remove());</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                     </span>data.costItems[categoryName].forEach(itemData =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>let input = Array.from(container.querySelectorAll('.cost-item-name')).find(el =&gt; el.textContent === itemData.name)?.closest('.cost-item').querySelector('input');</p>
-<p class="p2"><span class="Apple-converted-space">                        </span></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>if (input) {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                            </span>input.value = itemData.value;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>} else {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                             </span>const newItem = document.createElement('div');</p>
-<p class="p1"><span class="Apple-converted-space">                             </span>newItem.className = 'cost-item dynamic';</p>
-<p class="p1"><span class="Apple-converted-space">                             </span>newItem.innerHTML = `</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span class="cost-item-name"&gt;${itemData.name}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="cost-item-value"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;input type="number" class="form-control" value="${itemData.value}" oninput="updateCategoryTotal('${categoryName}')"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;span&gt;€&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;button class="btn-remove" onclick="this.closest('.cost-item').remove(); updateCategoryTotal('${categoryName}')"&gt;Rimuovi&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">                             </span>container.querySelector('.btn-add-wrapper').insertAdjacentElement('beforebegin', newItem);</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                     </span>});</p>
-<p class="p1"><span class="Apple-converted-space">                     </span>updateCategoryTotal(categoryName);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>uploadedPhotos = data.photos || [];</p>
-<p class="p1"><span class="Apple-converted-space">            </span>renderPhotos();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>updateCalculations();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>async function loadProject(projectName) {</p>
-<p class="p1"><span class="Apple-converted-space">             </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const docSnap = await getDoc(doc(db, "projects", projectName));</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (docSnap.exists()) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>restoreAllData(docSnap.data().data);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>closeProjectModal();</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>updateStatus(`Progetto "${projectName}" caricato.`, true);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} catch (error) { updateStatus("Errore durante il caricamento.", false); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>async function deleteProject(projectName) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (!confirm(`Sei sicuro di voler eliminare il progetto "${projectName}"?`)) return;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>updateStatus(`Eliminazione di "${projectName}"...`);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const projectRef = doc(db, "projects", projectName);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const docSnap = await getDoc(projectRef);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (docSnap.exists() &amp;&amp; docSnap.data().data.photos) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const photoURLs = docSnap.data().data.photos;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>for (const url of photoURLs) {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>await deleteObject(ref(storage, url)).catch(err =&gt; console.warn("Failed to delete photo:", err));</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>await deleteDoc(projectRef);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>updateStatus(`Progetto eliminato.`, true);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>openProjectModal();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} catch (error) { updateStatus("Errore durante l'eliminazione.", false); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>async function openProjectModal() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>if (!isAuthReady) return;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const modal = document.getElementById('projectModal');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const list = document.getElementById('projectList');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>list.innerHTML = '&lt;li&gt;Caricamento...&lt;/li&gt;';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>modal.style.display = 'block';</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const q = query(collection(db, "projects"), where("userId", "==", userId), orderBy("savedAt", "desc"));</p>
-<p class="p1"><span class="Apple-converted-space">                </span>const querySnapshot = await getDocs(q);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>list.innerHTML = '';</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if (querySnapshot.empty) {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>list.innerHTML = '&lt;li&gt;Nessun progetto salvato.&lt;/li&gt;';</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>return;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>querySnapshot.forEach((doc) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const project = doc.data();</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const date = project.savedAt.toDate().toLocaleString('it-IT');</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>const li = document.createElement('li');</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>li.className = 'project-item';</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>li.innerHTML = `</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="project-info"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="project-name"&gt;${project.name}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="project-date"&gt;Salvato il: ${date}&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="project-actions"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;button onclick="window.loadProject('${project.name}')" title="Carica"&gt;&lt;svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"&gt;&lt;path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/&gt;&lt;/svg&gt;&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;button onclick="window.deleteProject('${project.name}')" title="Elimina"&gt;&lt;svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#FF3B30" stroke-width="2"&gt;&lt;polyline points="3 6 5 6 21 6"&gt;&lt;/polyline&gt;&lt;path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/button&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;`;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>list.appendChild(li);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>} catch (error) {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>list.innerHTML = '&lt;li&gt;Errore nel caricare i progetti.&lt;/li&gt;';</p>
-<p class="p1"><span class="Apple-converted-space">                 </span>if (error.code === 'failed-precondition') {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>updateStatus("Errore database: clicca il link nella console per creare l'indice Firestore.", false, 0);</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>console.error("Link per creare l'indice:", error.message.match(/https:\/\/.*/)[0]);</p>
-<p class="p1"><span class="Apple-converted-space">                </span>}</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function closeProjectModal() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('projectModal').style.display = 'none';</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function newProject() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('input, textarea, select').forEach(el =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>if(el.type !== 'file') el.value = '';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('.cost-item.dynamic').forEach(item =&gt; item.remove());</p>
-<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('.tel-link').forEach(link =&gt; link.href = '#');</p>
-<p class="p1"><span class="Apple-converted-space">            </span>uploadedPhotos = [];</p>
-<p class="p1"><span class="Apple-converted-space">            </span>renderPhotos();</p>
-<p class="p1"><span class="Apple-converted-space">            </span>updateCalculations();</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>function printReport() { window.print(); }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>Object.assign(window, {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>loadProject, deleteProject, openProjectModal, closeProjectModal, saveProject,</p>
-<p class="p1"><span class="Apple-converted-space">            </span>handlePhotos, newProject, printReport, switchTab, toggleCategory, addCustomItem,</p>
-<p class="p1"><span class="Apple-converted-space">            </span>updateCategoryTotal, updateCalculations, updateCityAnalysis, updateTelLink</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
-<p class="p2"><br></p>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>FlipMetrics</h1>
+            <p class="subtitle">Analisi Professionale per Investimenti Immobiliari</p>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="switchTab(event, 'info')">Informazioni</button>
+            <button class="nav-tab" onclick="switchTab(event, 'params')">Parametri Finanziari</button>
+            <button class="nav-tab" onclick="switchTab(event, 'results')">Analisi</button>
+        </div>
+
+        <!-- Tab: Informazioni -->
+        <div id="info" class="tab-content active">
+            <div class="section">
+                <h3 class="section-title">Dettagli Immobile</h3>
+                <div class="form-group"><label>Indirizzo Completo</label><input type="text" class="form-control" id="indirizzo"></div>
+                <div class="grid-2">
+                    <div class="form-group"><label>Piano</label><input type="text" class="form-control" id="piano"></div>
+                    <div class="form-group"><label>Tipologia</label><select class="form-control" id="tipologia"><option>Appartamento</option><option>Villa</option><option>Attico</option><option>Loft</option></select></div>
+                </div>
+                <div class="grid-2">
+                    <div class="form-group"><label>Metri Quadri</label><div class="input-with-suffix"><input type="number" class="form-control" id="metri" oninput="updateCalculations()"><span class="input-suffix">m²</span></div></div>
+                    <div class="form-group"><label>Prezzo Venditore</label><div class="input-with-suffix"><input type="number" class="form-control" id="prezzoVenditore" oninput="updateCalculations()"><span class="input-suffix">€</span></div></div>
+                </div>
+                <div class="form-group"><label>Prezzo al Metro Quadro</label><div class="input-with-suffix"><input type="text" class="form-control" id="euroMetro" readonly style="background: var(--surface);"><span class="input-suffix">€/m²</span></div></div>
+            </div>
+            <div class="section">
+                <h3 class="section-title">Contatti</h3>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label>Agenzia</label>
+                        <input type="text" class="form-control" id="agenzia">
+                    </div>
+                    <div class="form-group">
+                        <label>Telefono Agenzia</label>
+                        <a id="telAgenziaLink" class="tel-link"><input type="tel" class="form-control" id="telAgenzia" oninput="updateTelLink(this)"></a>
+                    </div>
+                    <div class="form-group">
+                        <label>Agente</label>
+                        <input type="text" class="form-control" id="agente">
+                    </div>
+                    <div class="form-group">
+                        <label>Telefono Agente</label>
+                        <a id="telAgenteLink" class="tel-link"><input type="tel" class="form-control" id="telAgente" oninput="updateTelLink(this)"></a>
+                    </div>
+                    <div class="form-group">
+                        <label>Proprietario</label>
+                        <input type="text" class="form-control" id="proprietario">
+                    </div>
+                    <div class="form-group">
+                        <label>Telefono Proprietario</label>
+                        <a id="telProprietarioLink" class="tel-link"><input type="tel" class="form-control" id="telProprietario" oninput="updateTelLink(this)"></a>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Link Annuncio</label>
+                    <input type="url" class="form-control" id="linkAnnuncio">
+                </div>
+            </div>
+            <div class="section">
+                <h3 class="section-title">Note</h3>
+                <textarea class="form-control" id="note" rows="5"></textarea>
+            </div>
+            <div class="section">
+                 <h3 class="section-title">Documentazione Fotografica</h3>
+                <div class="photo-upload" onclick="document.getElementById('photoInput').click()">
+                    <div>Clicca per caricare foto</div>
+                </div>
+                <input type="file" id="photoInput" multiple accept="image/*" style="display: none;" onchange="handlePhotos(event)">
+                <div class="photo-preview" id="photoPreview"></div>
+            </div>
+        </div>
+
+        <!-- Tab: Parametri Finanziari -->
+        <div id="params" class="tab-content">
+            <div class="highlight-section">
+                <h3 class="section-title">Prezzo di Rivendita Stimato</h3>
+                <div class="input-with-suffix"><input type="number" class="form-control highlight-input" id="prezzoRivendita" oninput="updateCalculations()"><span class="input-suffix">€</span></div>
+            </div>
+            
+            <div id="cost-categories-container">
+                <!-- Voci verranno popolate da JavaScript -->
+            </div>
+        </div>
+
+        <!-- Tab: Analisi -->
+        <div id="results" class="tab-content">
+            <div class="calculation-section">
+                <h2 class="calculation-title">Proposta d'Acquisto</h2>
+                <div class="calculation-row"><span>Prezzo Rivendita Stimato</span><span id="calcRivendita">0 €</span></div>
+                <div class="calculation-row"><span>Totale Costi</span><span id="calcCosti">0 €</span></div>
+                <div class="calculation-row"><span>Nostro Utile</span><span id="calcUtile">0 €</span></div>
+                <div class="calculation-row"><span>Cifra da Offrire</span><span id="calcOfferta">0 €</span></div>
+                <div class="calculation-result" id="finalResult">0 €</div>
+            </div>
+            <div class="metrics-grid">
+                <div class="metric-card"><div class="metric-label">ROI</div><div class="metric-value" id="roiValue">0%</div></div>
+                <div class="metric-card"><div class="metric-label">Margine</div><div class="metric-value" id="margineValue">0%</div></div>
+                <div class="metric-card"><div class="metric-label">Differenza Venditore</div><div class="metric-value" id="diffVenditore">0 €</div></div>
+            </div>
+            <div class="analysis-card">
+                <h3 class="analysis-title">Analisi ROI per Dimensione Città</h3>
+                <div class="city-selector">
+                    <label>Seleziona Dimensione Città:</label>
+                    <select id="citySize" onchange="updateCityAnalysis()" class="form-control" style="width: auto; display: inline-block;"><option value="">-- Seleziona --</option><option value="grande">Città Grande</option><option value="media">Città Media</option><option value="piccola">Città Piccola</option></select>
+                </div>
+                <div class="city-grid">
+                    <div class="city-card" id="cityGrande"><div class="city-type">Città Grandi</div><div class="city-roi">ROI: 18-22%</div></div>
+                    <div class="city-card" id="cityMedia"><div class="city-type">Città Medie</div><div class="city-roi">ROI: 22-28%</div></div>
+                    <div class="city-card" id="cityPiccola"><div class="city-type">Città Piccole</div><div class="city-roi">ROI: 25-35%</div></div>
+                </div>
+                <div id="recommendationBox" class="recommendation-box neutral"><p id="recommendationText">Seleziona la dimensione della città per ottenere una valutazione.</p></div>
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button id="saveBtn" class="btn btn-primary" onclick="saveProject()">Salva Progetto</button>
+            <button id="manageBtn" class="btn btn-secondary" onclick="openProjectModal()">Gestisci Progetti</button>
+            <button class="btn btn-success" onclick="printReport()">Stampa Report</button>
+            <button class="btn btn-secondary" onclick="newProject()">Nuovo Progetto</button>
+        </div>
+    </div>
+
+    <!-- Modal for Project Management -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2 class="modal-title">I Tuoi Progetti Salvati</h2><span class="close-btn" onclick="closeProjectModal()">&times;</span></div>
+            <ul id="projectList" class="project-list"></ul>
+        </div>
+    </div>
+
+    <!-- Status Bar -->
+    <div id="statusBar" class="status-bar" style="display: none;"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, deleteDoc, collection, query, where, getDocs, Timestamp, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
+
+        // --- Firebase Configuration ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyAqSe9ayymGSdVdLm4Dpl3-tLEkettrIkA",
+            authDomain: "flipmetrics-database.firebaseapp.com",
+            projectId: "flipmetrics-database",
+            storageBucket: "flipmetrics-database.appspot.com",
+            messagingSenderId: "718086843012",
+            appId: "1:718086843012:web:7e28dff7dcfb12bbb670d1"
+        };
+        
+        // --- App State & Structure ---
+        let app, auth, db, storage, userId;
+        let isAuthReady = false;
+        let uploadedPhotos = []; 
+        
+        const costStructure = {
+            'Ristrutturazione': ['Impresa Edile', 'Infissi', 'Impianto Elettrico', 'Impianto Idraulico', 'Pavimenti', 'Tinteggiatura'],
+            'Professionisti': ['Accatastamento', 'Frazionamento', 'Progetto Architettonico', 'Pratiche Comunali', 'Certificazioni Energetiche', 'Collaudo Impianti'],
+            'Costo Denaro': ['Interessi Mutuo', 'Spese Istruttoria', 'Perizia Banca', 'Polizze Assicurative', 'Costi Investitori', 'Commissioni Finanziarie'],
+            'Spese Immobile': ['Spese Condominiali', 'Riscaldamento', 'Utenze', 'Manutenzione Ordinaria', 'Assicurazione Fabbricato', 'Tasse Comunali'],
+            'Tasse': ['IMU', 'TARI', 'Imposte Comunali'],
+            'Atto Compravendita': ['Notaio', 'Imposta di Registro', 'Imposte Ipotecarie e Catastali'],
+            'Imprevisti': ['Riserva Emergenze', 'Lavori Extra', 'Ritardi Cantiere', 'Varianti Progetto'],
+            'Agenzia': ['Provvigioni Acquisto', 'Provvigioni Vendita'],
+            'Utile Trading': ['Target Profitto']
+        };
+
+        // --- Initialization ---
+        window.onload = () => {
+            document.getElementById('saveBtn').disabled = true;
+            document.getElementById('manageBtn').disabled = true;
+            initializeFirebase();
+            renderCostCategories();
+            updateCalculations();
+        };
+
+        function initializeFirebase() {
+            try {
+                app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+                storage = getStorage(app);
+                updateStatus("Autenticazione in corso...");
+                onAuthStateChanged(auth, user => {
+                    if (user) {
+                        isAuthReady = true;
+                        userId = user.uid;
+                        updateStatus("Autenticato. Pronto.", true);
+                        document.getElementById('saveBtn').disabled = false;
+                        document.getElementById('manageBtn').disabled = false;
+                    } else {
+                        signInAnonymously(auth).catch(error => updateStatus("Errore di autenticazione.", false, 10000));
+                    }
+                });
+            } catch (error) {
+                console.error("Firebase Init Error:", error);
+                updateStatus("ERRORE: Configurazione Firebase non valida.", false, 0);
+            }
+        }
+        
+        function renderCostCategories() {
+            const container = document.getElementById('cost-categories-container');
+            container.innerHTML = '';
+            for (const categoryName in costStructure) {
+                const items = costStructure[categoryName];
+                const categoryId = categoryName.replace(/\s/g, '');
+                
+                const categoryEl = document.createElement('div');
+                categoryEl.className = 'cost-category';
+
+                let itemsHtml = items.map(itemName => `
+                    <div class="cost-item">
+                        <span class="cost-item-name">${itemName}</span>
+                        <div class="cost-item-value">
+                            <input type="number" class="form-control" oninput="updateCategoryTotal('${categoryName}')">
+                            <span>€</span>
+                        </div>
+                    </div>
+                `).join('');
+
+                const addButtonHtml = categoryName !== 'Utile Trading' ? 
+                    `<div class="btn-add-wrapper"><button class="btn-add" onclick="addCustomItem(event, '${categoryName}')">Aggiungi Voce</button></div>` : '';
+
+                categoryEl.innerHTML = `
+                    <div class="cost-header" onclick="toggleCategory(event)">
+                        <span class="category-name">${categoryName}</span>
+                        <span class="category-total" id="tot${categoryId}">0 €</span>
+                    </div>
+                    <div class="cost-items">
+                        ${itemsHtml}
+                        ${addButtonHtml}
+                    </div>
+                `;
+                container.appendChild(categoryEl);
+            }
+        }
+        
+        // --- Status & UI ---
+        function updateStatus(message, success = null, duration = 3000) {
+            const statusBar = document.getElementById('statusBar');
+            statusBar.textContent = message;
+            statusBar.style.display = 'block';
+            statusBar.style.backgroundColor = success === true ? 'var(--success)' : success === false ? 'var(--danger)' : 'var(--gray-dark)';
+            if (duration > 0) setTimeout(() => statusBar.style.display = 'none', duration);
+        }
+
+        function switchTab(event, tabName) {
+            document.querySelectorAll('.nav-tab, .tab-content').forEach(el => el.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        function toggleCategory(event) {
+            event.currentTarget.nextElementSibling.classList.toggle('active');
+        }
+        
+        function addCustomItem(event, categoryName) {
+            const name = prompt("Nome della nuova voce:");
+            if (!name) return;
+            const container = event.currentTarget.parentElement.parentElement;
+            const newItem = document.createElement('div');
+            newItem.className = 'cost-item dynamic';
+            newItem.innerHTML = `
+                <span class="cost-item-name">${name}</span>
+                <div class="cost-item-value">
+                    <input type="number" class="form-control" oninput="updateCategoryTotal('${categoryName}')">
+                    <span>€</span>
+                    <button class="btn-remove" onclick="this.closest('.cost-item').remove(); updateCategoryTotal('${categoryName}')">Rimuovi</button>
+                </div>`;
+            container.insertBefore(newItem, event.currentTarget.parentElement);
+        }
+
+        function updateTelLink(inputElement) {
+            const linkElement = inputElement.parentElement;
+            let phoneNumber = inputElement.value.replace(/\D/g, ''); // Rimuove non-numeri
+            if (phoneNumber) {
+                linkElement.href = `tel:${phoneNumber}`;
+            } else {
+                linkElement.href = '#';
+            }
+        }
+
+        // --- Calculations ---
+        function updateCategoryTotal(categoryName) {
+            const header = Array.from(document.querySelectorAll('.category-name')).find(el => el.textContent === categoryName);
+            if (!header) return;
+            const container = header.closest('.cost-category').querySelector('.cost-items');
+            const inputs = container.querySelectorAll('input[type="number"]');
+            let total = 0;
+            inputs.forEach(input => total += parseFloat(input.value) || 0);
+            
+            const categoryId = categoryName.replace(/\s/g, '');
+            header.closest('.cost-category').querySelector('.category-total').textContent = `${total.toLocaleString('it-IT')} €`;
+            updateCalculations();
+        }
+
+        function updateCalculations() {
+            const metri = parseFloat(document.getElementById('metri').value) || 0;
+            const prezzoVenditore = parseFloat(document.getElementById('prezzoVenditore').value) || 0;
+            document.getElementById('euroMetro').value = metri > 0 ? (prezzoVenditore / metri).toFixed(2) : '0.00';
+
+            const prezzoRivendita = parseFloat(document.getElementById('prezzoRivendita').value) || 0;
+            let totaleCosti = 0, utile = 0;
+
+            document.querySelectorAll('.cost-category').forEach(categoryEl => {
+                const categoryName = categoryEl.querySelector('.category-name').textContent;
+                let categoryTotal = 0;
+                categoryEl.querySelectorAll('.cost-item input[type="number"]').forEach(input => {
+                    categoryTotal += parseFloat(input.value) || 0;
+                });
+                
+                if (categoryName === 'Utile Trading') utile = categoryTotal;
+                else totaleCosti += categoryTotal;
+            });
+
+            const offerta = prezzoRivendita - totaleCosti - utile;
+            const roi = (utile > 0 && offerta > 0) ? (utile / offerta * 100) : 0;
+            const margine = prezzoRivendita > 0 ? (utile / prezzoRivendita * 100) : 0;
+            const diff = prezzoVenditore - offerta;
+
+            document.getElementById('calcRivendita').textContent = `${prezzoRivendita.toLocaleString('it-IT')} €`;
+            document.getElementById('calcCosti').textContent = `${totaleCosti.toLocaleString('it-IT')} €`;
+            document.getElementById('calcUtile').textContent = `${utile.toLocaleString('it-IT')} €`;
+            document.getElementById('calcOfferta').textContent = `${offerta.toLocaleString('it-IT')} €`;
+            document.getElementById('finalResult').textContent = `${offerta.toLocaleString('it-IT')} €`;
+            document.getElementById('roiValue').textContent = `${roi.toFixed(1)}%`;
+            document.getElementById('margineValue').textContent = `${margine.toFixed(1)}%`;
+            document.getElementById('diffVenditore').textContent = `${diff.toLocaleString('it-IT')} €`;
+
+            updateCityAnalysis();
+        }
+        
+        function updateCityAnalysis() {
+            const selectedCity = document.getElementById('citySize').value;
+            document.querySelectorAll('.city-card').forEach(c => c.classList.remove('selected'));
+            const recommendationBox = document.getElementById('recommendationBox');
+            const recommendationText = document.getElementById('recommendationText');
+            
+            if (!selectedCity) {
+                recommendationBox.className = 'recommendation-box neutral';
+                recommendationText.textContent = 'Seleziona la dimensione della città per ottenere una valutazione.';
+                return;
+            }
+
+            document.getElementById(`city${selectedCity.charAt(0).toUpperCase() + selectedCity.slice(1)}`).classList.add('selected');
+            const roi = parseFloat(document.getElementById('roiValue').textContent) || 0;
+            const ranges = { grande: [18, 22], media: [22, 28], piccola: [25, 35] };
+            const [min, max] = ranges[selectedCity];
+            
+            if (roi >= max) {
+                recommendationBox.className = 'recommendation-box success';
+                recommendationText.textContent = `ECCELLENTE: ROI del ${roi.toFixed(1)}% supera il massimo atteso (${max}%).`;
+            } else if (roi >= min) {
+                recommendationBox.className = 'recommendation-box success';
+                recommendationText.textContent = `CONSIGLIATA: ROI del ${roi.toFixed(1)}% rientra nel range ottimale (${min}-${max}%).`;
+            } else if (roi >= min - 3) {
+                recommendationBox.className = 'recommendation-box neutral';
+                recommendationText.textContent = `DA VALUTARE: ROI del ${roi.toFixed(1)}% è leggermente sotto il minimo (${min}%).`;
+            } else {
+                recommendationBox.className = 'recommendation-box warning';
+                recommendationText.textContent = `NON CONSIGLIATA: ROI del ${roi.toFixed(1)}% è troppo basso per questo mercato.`;
+            }
+        }
+        
+        // --- Photo Management ---
+        async function handlePhotos(event) {
+            if (!isAuthReady) return updateStatus("Attendi l'autenticazione.", false);
+            const files = event.target.files;
+            updateStatus(`Caricamento di ${files.length} foto...`);
+            for (let file of files) {
+                const storageRef = ref(storage, `photos/${userId}/${Date.now()}_${file.name}`);
+                try {
+                    await uploadBytes(storageRef, file);
+                    const downloadURL = await getDownloadURL(storageRef);
+                    uploadedPhotos.push(downloadURL);
+                    renderPhotos();
+                } catch (error) { 
+                    console.error("Photo upload error:", error);
+                    updateStatus("Errore caricamento foto. Controlla la configurazione di Storage.", false);
+                }
+            }
+            updateStatus("Caricamento foto completato.", true);
+        }
+
+        function renderPhotos() {
+            const preview = document.getElementById('photoPreview');
+            preview.innerHTML = '';
+            uploadedPhotos.forEach(url => {
+                const img = document.createElement('img');
+                img.src = url;
+                preview.appendChild(img);
+            });
+        }
+
+        // --- Project Data Management (Cloud) ---
+        function collectAllData() {
+            const data = {};
+            document.querySelectorAll('input, textarea, select').forEach(el => {
+                if (el.id) data[el.id] = el.value;
+            });
+
+            data.costItems = {};
+             document.querySelectorAll('.cost-category').forEach(categoryEl => {
+                const categoryName = categoryEl.querySelector('.category-name').textContent;
+                data.costItems[categoryName] = [];
+                categoryEl.querySelectorAll('.cost-item').forEach(itemEl => {
+                    const name = itemEl.querySelector('.cost-item-name').textContent;
+                    const value = itemEl.querySelector('input[type="number"]').value;
+                    data.costItems[categoryName].push({ name, value });
+                });
+            });
+            data.photos = uploadedPhotos;
+            return data;
+        }
+        
+        async function saveProject() {
+            if (!isAuthReady) return;
+            const projectName = prompt('Nome del progetto:');
+            if (!projectName) return;
+            
+            updateStatus(`Salvataggio di "${projectName}"...`);
+            try {
+                await setDoc(doc(db, "projects", projectName), {
+                    name: projectName,
+                    savedAt: Timestamp.now(),
+                    userId: userId,
+                    data: collectAllData()
+                });
+                updateStatus(`Progetto "${projectName}" salvato!`, true);
+            } catch (error) { updateStatus("Errore durante il salvataggio.", false); }
+        }
+        
+        function restoreAllData(data) {
+            newProject();
+            
+            for (const key in data) {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.value = data[key];
+                    if (element.type === 'tel') updateTelLink(element);
+                }
+            }
+
+            if (data.costItems) {
+                for (const categoryName in data.costItems) {
+                     const header = Array.from(document.querySelectorAll('.category-name')).find(el => el.textContent === categoryName);
+                     if (!header) continue;
+                     const container = header.closest('.cost-category').querySelector('.cost-items');
+                     
+                     container.querySelectorAll('.cost-item.dynamic').forEach(item => item.remove());
+
+                     data.costItems[categoryName].forEach(itemData => {
+                        let input = Array.from(container.querySelectorAll('.cost-item-name')).find(el => el.textContent === itemData.name)?.closest('.cost-item').querySelector('input');
+                        
+                        if (input) { 
+                            input.value = itemData.value;
+                        } else { 
+                             const newItem = document.createElement('div');
+                             newItem.className = 'cost-item dynamic';
+                             newItem.innerHTML = `
+                                <span class="cost-item-name">${itemData.name}</span>
+                                <div class="cost-item-value">
+                                    <input type="number" class="form-control" value="${itemData.value}" oninput="updateCategoryTotal('${categoryName}')">
+                                    <span>€</span>
+                                    <button class="btn-remove" onclick="this.closest('.cost-item').remove(); updateCategoryTotal('${categoryName}')">Rimuovi</button>
+                                </div>`;
+                             container.querySelector('.btn-add-wrapper').insertAdjacentElement('beforebegin', newItem);
+                        }
+                     });
+                     updateCategoryTotal(categoryName);
+                }
+            }
+
+            uploadedPhotos = data.photos || [];
+            renderPhotos();
+            updateCalculations();
+        }
+        
+        async function loadProject(projectName) {
+             try {
+                const docSnap = await getDoc(doc(db, "projects", projectName));
+                if (docSnap.exists()) {
+                    restoreAllData(docSnap.data().data);
+                    closeProjectModal();
+                    updateStatus(`Progetto "${projectName}" caricato.`, true);
+                }
+            } catch (error) { updateStatus("Errore durante il caricamento.", false); }
+        }
+
+        async function deleteProject(projectName) {
+            if (!confirm(`Sei sicuro di voler eliminare il progetto "${projectName}"?`)) return;
+            updateStatus(`Eliminazione di "${projectName}"...`);
+            try {
+                const projectRef = doc(db, "projects", projectName);
+                const docSnap = await getDoc(projectRef);
+                if (docSnap.exists() && docSnap.data().data.photos) {
+                    const photoURLs = docSnap.data().data.photos;
+                    for (const url of photoURLs) {
+                        await deleteObject(ref(storage, url)).catch(err => console.warn("Failed to delete photo:", err));
+                    }
+                }
+                await deleteDoc(projectRef);
+                updateStatus(`Progetto eliminato.`, true);
+                openProjectModal();
+            } catch (error) { updateStatus("Errore durante l'eliminazione.", false); }
+        }
+
+        async function openProjectModal() {
+            if (!isAuthReady) return;
+            const modal = document.getElementById('projectModal');
+            const list = document.getElementById('projectList');
+            list.innerHTML = '<li>Caricamento...</li>';
+            modal.style.display = 'block';
+
+            try {
+                const q = query(collection(db, "projects"), where("userId", "==", userId), orderBy("savedAt", "desc"));
+                const querySnapshot = await getDocs(q);
+                list.innerHTML = '';
+                if (querySnapshot.empty) {
+                    list.innerHTML = '<li>Nessun progetto salvato.</li>';
+                    return;
+                }
+                querySnapshot.forEach((doc) => {
+                    const project = doc.data();
+                    const date = project.savedAt.toDate().toLocaleString('it-IT');
+                    const li = document.createElement('li');
+                    li.className = 'project-item';
+                    li.innerHTML = `
+                        <div class="project-info">
+                            <span class="project-name">${project.name}</span>
+                            <span class="project-date">Salvato il: ${date}</span>
+                        </div>
+                        <div class="project-actions">
+                            <button onclick="window.loadProject('${project.name}')" title="Carica"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg></button>
+                            <button onclick="window.deleteProject('${project.name}')" title="Elimina"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="#FF3B30" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
+                        </div>`;
+                    list.appendChild(li);
+                });
+            } catch (error) {
+                list.innerHTML = '<li>Errore nel caricare i progetti.</li>';
+                 if (error.code === 'failed-precondition') {
+                    updateStatus("Errore database: clicca il link nella console per creare l'indice Firestore.", false, 0);
+                    console.error("Link per creare l'indice:", error.message.match(/https:\/\/.*/)[0]);
+                }
+            }
+        }
+        
+        function closeProjectModal() {
+            document.getElementById('projectModal').style.display = 'none';
+        }
+        
+        function newProject() {
+            document.querySelectorAll('input, textarea, select').forEach(el => {
+                if(el.type !== 'file') el.value = '';
+            });
+            document.querySelectorAll('.cost-item.dynamic').forEach(item => item.remove());
+            document.querySelectorAll('.tel-link').forEach(link => link.href = '#');
+            uploadedPhotos = [];
+            renderPhotos();
+            updateCalculations();
+        }
+
+        function printReport() { window.print(); }
+
+        Object.assign(window, {
+            loadProject, deleteProject, openProjectModal, closeProjectModal, saveProject,
+            handlePhotos, newProject, printReport, switchTab, toggleCategory, addCustomItem,
+            updateCategoryTotal, updateCalculations, updateCityAnalysis, updateTelLink
+        });
+
+    </script>
 </body>
 </html>
+
